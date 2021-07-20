@@ -1,7 +1,7 @@
 ---
 title: Authentication options in Outlook add-ins
 description: Outlook add-ins provide a number of different methods to authenticate, depending on your specific scenario.
-ms.date: 02/09/2021
+ms.date: 06/22/2021
 localization_priority: Priority
 ---
 
@@ -15,7 +15,7 @@ Single sign-on access tokens provide a seamless way for your add-in to authentic
 
 > [!NOTE]
 > The Single Sign-on API is currently supported for Word, Excel, Outlook, and PowerPoint. For more information about where the Single Sign-on API is currently supported, see [IdentityAPI requirement sets](../reference/requirement-sets/identity-api-requirement-sets.md).
-> If you are working with an Outlook add-in, be sure to enable Modern Authentication for the Office tenancy. For information about how to do this, see [Exchange Online: How to enable your tenant for modern authentication](https://social.technet.microsoft.com/wiki/contents/articles/32711.exchange-online-how-to-enable-your-tenant-for-modern-authentication.aspx).
+> If you are working with an Outlook add-in, be sure to enable Modern Authentication for the Microsoft 365 tenancy. For information about how to do this, see [Exchange Online: How to enable your tenant for modern authentication](https://social.technet.microsoft.com/wiki/contents/articles/32711.exchange-online-how-to-enable-your-tenant-for-modern-authentication.aspx).
 
 Consider using SSO access tokens if your add-in:
 
@@ -43,7 +43,7 @@ Exchange user identity tokens provide a way for your add-in to establish the ide
 
 - When the add-in is used primarily by Exchange on-premises users.
 - When the add-in needs access to a non-Microsoft service that you control.
-- As a fallback authentication (and authorization to Microsoft Graph) when the add-in is running on a version of Office that doesn't support SSO.
+- As a fallback authentication when the add-in is running on a version of Office that doesn't support SSO.
 
 Your add-in can call [getUserIdentityTokenAsync](/javascript/api/outlook/office.mailbox#getuseridentitytokenasync-callback--usercontext-) to get Exchange user identity tokens. For details on using these tokens, see [Authenticate a user with an identity token for Exchange](authenticate-a-user-with-an-identity-token.md).
 

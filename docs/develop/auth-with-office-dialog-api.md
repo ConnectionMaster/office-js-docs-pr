@@ -1,7 +1,7 @@
 ---
 title: Authenticate and authorize with the Office dialog API
 description: 'Learn how to use the Office dialog API to enable users to sign-on to Google, Facebook, Microsoft 365, and other services protected by Microsoft Identity Platform.'
-ms.date: 09/24/2020
+ms.date: 07/19/2021
 localization_priority: Priority
 ---
 
@@ -12,7 +12,7 @@ Many identity authorities, also called Secure Token Services (STS), prevent thei
 > [!NOTE]
 > This article assumes that you are familiar with [Use the Office dialog API in your Office Add-ins](dialog-api-in-office-add-ins.md).
 
-The dialog box that is opened with this API has the following characteristics:
+The dialog box that is opened with this API has the following characteristics.
 
 - It is [nonmodal](https://en.wikipedia.org/wiki/Dialog_box).
 - It is a completely separate browser instance from the task pane, meaning:
@@ -20,9 +20,9 @@ The dialog box that is opened with this API has the following characteristics:
   - There is no shared execution environment with the task pane.
   - It does not share the same session storage (the [Window.sessionStorage](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) property) as the task pane.
 - The first page opened in the dialog box must be hosted in the same domain as the task pane, including protocol, subdomains, and port, if any.
-- The dialog box can send information back to the task pane by using the [messageParent](/javascript/api/office/office.ui#messageparent-message-) method, but this method can be called only from a page that is hosted in the same domain as the task pane, including protocol, subdomains, and port.
+- The dialog box can send information back to the task pane by using the [messageParent](/javascript/api/office/office.ui#messageparent-message-) method. (We recommend that this method be called only from a page that is hosted in the same domain as the task pane, including protocol, subdomains, and port. Otherwise, there are complications in how you call the method and process the message. For more information, see [Cross-domain messaging to the host runtime](dialog-api-in-office-add-ins.md#cross-domain-messaging-to-the-host-runtime).)
 
-When the dialog box is not an iframe (which is the default), it can open the login page of an identity provider. As you'll see below, the characteristics of the Office dialog box have implications for how you use authentication or authorization libraries such as MSAL and Passport.
+When the dialog box is not an iframe (which it isn't by default), it can open the login page of an identity provider. As you'll see below, the characteristics of the Office dialog box have implications for how you use authentication or authorization libraries such as MSAL and Passport.
 
 > [!NOTE]
 > There is a way to configure the dialog box to open in a floating iframe: you simply pass the `displayInIframe: true` option in the call to `displayDialogAsync`. Do *not* do this when you are using the Office dialog API for login.
@@ -31,10 +31,10 @@ When the dialog box is not an iframe (which is the default), it can open the log
 
 The following is a simple and typical authentication flow. Details are after the diagram.
 
-![Diagram showing the relationship between the task pane and dialog box browser processes](../images/taskpane-dialog-processes.gif)
+![Diagram showing the relationship between the task pane and dialog box browser processes.](../images/taskpane-dialog-processes.gif)
 
 1. The first page that opens in the dialog box is a page (or other resource) that is hosted in the add-in's domain; that is, the same domain as the task pane window. This page can have a simple UI that says "Please wait, we are redirecting you to the page where you can sign in to *NAME-OF-PROVIDER*." The code in this page constructs the URL of the identity provider's sign-in page with information that is either passed to the dialog box as described in [Pass information to the dialog box](dialog-api-in-office-add-ins.md#pass-information-to-the-dialog-box) or is hardcoded into a configuration file of the add-in, such as a web.config file.
-2. The dialog box window then redirects to the sign-in page. The URL includes a query parameter that tells the identity provider to redirect the dialog box window to a specific page after the user signs in. In this article, we'll call this page **redirectPage.html**. *This must be a page in the same domain as the host window*, so that the results of the sign-in attempt can be passed to the task pane with a call of `messageParent`.
+2. The dialog box window then redirects to the sign-in page. The URL includes a query parameter that tells the identity provider to redirect the dialog box window to a specific page after the user signs in. In this article, we'll call this page **redirectPage.html**. *We recommend that this be a page in the same domain as the host window*. On this page, the results of the sign-in attempt can be passed to the task pane with a call of `messageParent`.
 3. The identity provider's service processes the incoming GET request from the dialog box window. If the user is already signed in, it immediately redirects the window to **redirectPage.html** and includes user data as a query parameter. If the user is not already signed in, the provider's sign-in page appears in the window, and the user signs in. For most providers, if the user cannot sign in successfully, the provider shows an error page in the dialog box window and does not redirect to **redirectPage.html**. The user must close the window by selecting the **X** in the corner. If the user successfully signs in, the dialog box window is redirected to **redirectPage.html** and user data is included as a query parameter.
 4. When the **redirectPage.html** page opens, it calls `messageParent` to report the success or failure to the task pane page and optionally also report user data or error data. Other possible messages include passing an access token or telling the task pane that the token is in storage.
 5. The `DialogMessageReceived` event fires in the task pane page and its handler closes the dialog box window and may further process of the message.
@@ -78,7 +78,7 @@ As an alternative, your add-in's dialog box browser instance can directly call t
 
 Often, an auth-related library has a method that both obtains a token interactively and also creates an "auth-context" object which the method returns. The token is a property of the object (possibly private and inaccessible directly from your code). That object has the methods that get data from the resource. These methods include the token in the HTTP Requests that they make to the resource provider (such as Google, Microsoft Graph, Facebook, etc.).
 
-These auth-context objects, and the methods that create them, are not usable in Office Add-ins. Since the login occurs in the Office dialog box's browser instance, the object would have to be created there. But the data calls to the resource are in the task pane browser instance and there is no way to get the object from one instance to another. For example, you cannot pass the object with `messageParent` because `messageParent` can only pass strings or boolean values. A JavaScript object with methods cannot be reliably stringified.
+These auth-context objects, and the methods that create them, are not usable in Office Add-ins. Since the login occurs in the Office dialog box's browser instance, the object would have to be created there. But the data calls to the resource are in the task pane browser instance and there is no way to get the object from one instance to another. For example, you cannot pass the object with `messageParent` because `messageParent` can only pass string values. A JavaScript object with methods cannot be reliably stringified.
 
 ### How you can use libraries with the Office dialog API
 
@@ -88,9 +88,9 @@ For more information about authentication and authorization libraries, see [Micr
 
 ## Samples
 
-- [Office Add-in Microsoft Graph ASP.NET](https://github.com/OfficeDev/PnP-OfficeAddins/tree/master/Samples/auth/Office-Add-in-Microsoft-Graph-ASPNET): An ASP.NET based add-in (Excel, Word, or PowerPoint) that uses the MSAL.NET library and the Authorization Code Flow to log in and get an access token for Microsoft Graph data.
+- [Office Add-in Microsoft Graph ASP.NET](https://github.com/OfficeDev/PnP-OfficeAddins/tree/master/Samples/auth/Office-Add-in-Microsoft-Graph-ASPNET): An ASP.NET based add-in (Excel, Word, or PowerPoint) that uses the MSAL.NET library and the Authorization Code Flow to sign in and get an access token for Microsoft Graph data.
 - [Outlook Add-in Microsoft Graph ASP.NET](https://github.com/OfficeDev/PnP-OfficeAddins/tree/master/Samples/auth/Outlook-Add-in-Microsoft-Graph-ASPNET): Just like the one above, but the Office application is Outlook.
-- [Office Add-in Microsoft Graph React](https://github.com/OfficeDev/PnP-OfficeAddins/tree/master/Samples/auth/Office-Add-in-Microsoft-Graph-React): A NodeJS based add-in (Excel, Word, or PowerPoint) that uses the msal.js library and the Implicit Flow to log in and get an access token for Microsoft Graph data.
+- [Office Add-in Microsoft Graph React](https://github.com/OfficeDev/PnP-OfficeAddins/tree/master/Samples/auth/Office-Add-in-Microsoft-Graph-React): A NodeJS based add-in (Excel, Word, or PowerPoint) that uses the msal.js library and the Implicit Flow to sign in and get an access token for Microsoft Graph data.
 
 
 For more information, see:

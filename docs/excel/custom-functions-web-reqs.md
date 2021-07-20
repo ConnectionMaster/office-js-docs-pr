@@ -1,5 +1,5 @@
 ---
-ms.date: 11/06/2020
+ms.date: 03/15/2021
 description: 'Request, stream, and cancel streaming of external data to your workbook with custom functions in Excel'
 title: Receive and handle data with custom functions
 localization_priority: Normal
@@ -7,11 +7,11 @@ localization_priority: Normal
 
 # Receive and handle data with custom functions
 
-One of the ways that custom functions enhances Excel's power is by receiving data from locations other than the workbook, such as the web or a server (through WebSockets). You can request external data through an API like [`Fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) or by using `XmlHttpRequest` [(XHR)](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest), a standard web API that issues HTTP requests to interact with servers.
+One of the ways that custom functions enhances Excel's power is by receiving data from locations other than the workbook, such as the web or a server (through WebSockets). You can request external data through an API like [`Fetch`](https://developer.mozilla.org/docs/Web/API/Fetch_API) or by using `XmlHttpRequest` [(XHR)](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest), a standard web API that issues HTTP requests to interact with servers.
 
 [!include[Excel custom functions note](../includes/excel-custom-functions-note.md)]
 
-![A gif of a custom function which streams the time from an API](../images/custom-functions-web-api.gif)
+![GIF of a custom function which streams the time from an API.](../images/custom-functions-web-api.gif)
 
 ## Functions that return data from external sources
 
@@ -99,7 +99,7 @@ To declare a streaming function, you can use either:
 - The `@streaming` tag.
 - The `CustomFunctions.StreamingInvocation` invocation parameter.
 
-The following code sample is a custom function that adds a number to the result every second. Note the following about this code:
+The following code sample is a custom function that adds a number to the result every second. Note the following about this code.
 
 - Excel displays each new value automatically using the `setResult` method.
 - The second input parameter, invocation, is not displayed to end users in Excel when they select the function from the autocomplete menu.
@@ -128,7 +128,7 @@ function increment(incrementBy, invocation) {
 
 ## Canceling a function
 
-Excel cancels the execution of a function in the following situations:
+Excel cancels the execution of a function in the following situations.
 
 - When the user edits or deletes a cell that references the function.
 - When one of the arguments (inputs) for the function changes. In this case, a new function call is triggered following the cancellation.
@@ -142,7 +142,7 @@ Note that there are also a category of functions called cancelable functions, wh
 
 The `invocation` parameter is the last parameter of any custom function by default. The `invocation` parameter gives context about the cell (such as its address and contents) and allows you to use `setResult` and `onCanceled` methods. These methods define what a function does when the function streams (`setResult`) or is canceled (`onCanceled`).
 
-If you're using TypeScript, the invocation handler needs to be of type [`CustomFunctions.StreamingInvocation`](/javascript/api/custom-functions-runtime/customfunctions.streaminginvocation) or[`CancelableInvocation`](/javascript/api/custom-functions-runtime/customfunctions.cancelableinvocation).
+If you're using TypeScript, the invocation handler needs to be of type [`CustomFunctions.StreamingInvocation`](/javascript/api/custom-functions-runtime/customfunctions.streaminginvocation) or [`CancelableInvocation`](/javascript/api/custom-functions-runtime/customfunctions.cancelableinvocation).
 
 ## Receiving data via WebSockets
 

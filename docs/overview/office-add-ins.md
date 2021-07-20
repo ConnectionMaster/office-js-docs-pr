@@ -11,7 +11,7 @@ localization_priority: Priority
 
 You can use the Office Add-ins platform to build solutions that extend Office applications and interact with content in Office documents. With Office Add-ins, you can use familiar web technologies such as HTML, CSS, and JavaScript to extend and interact with Word, Excel, PowerPoint, OneNote, Project, and Outlook. Your solution can run in Office across multiple platforms, including Windows, Mac, iPad, and in a browser.
 
-![Image of Office Add-ins extensibility](../images/addins-overview.png)
+![Office application plus an embedded website (add-in) make endless  extensibility possibilities.](../images/addins-overview.png)
 
 Office Add-ins can do almost anything a webpage can do inside a browser. Use the Office Add-ins platform to:
 
@@ -23,9 +23,9 @@ Office Add-ins can do almost anything a webpage can do inside a browser. Use the
 
 COM or VSTO add-ins are earlier Office integration solutions that run only in Office on Windows. Unlike COM add-ins, Office Add-ins don't involve code that runs on the user's device or in the Office client. For an Office Add-in, the application (for example, Excel), reads the add-in manifest and hooks up the add-in’s custom ribbon buttons and menu commands in the UI. When needed, it loads the add-in's JavaScript and HTML code, which executes in the context of a browser in a sandbox.
 
-![Image of reasons to use Office Add-ins](../images/why.png)
+![The reasons to use Office Add-ins: cross-platform, centralized deployment, easy access via AppSource, and built on standard web technologies.](../images/why.png)
 
-Office Add-ins provide the following advantages over add-ins built using VBA, COM, or VSTO:
+Office Add-ins provide the following advantages over add-ins built using VBA, COM, or VSTO.
 
 - Cross-platform support. Office Add-ins run in Office on the web, Windows, Mac, and iPad.
 
@@ -55,33 +55,33 @@ The most basic Office Add-in consists of a static HTML page that is displayed in
 
 *Figure 2. Components of a Hello World Office Add-in*
 
-![Components of a Hello World add-in](../images/about-addins-componentshelloworldoffice.png)
+![Components of a Hello World add-in.](../images/about-addins-componentshelloworldoffice.png)
 
 ## Extending and interacting with Office clients
 
-Office Add-ins can do the following within an Office client application:
+Office Add-ins can do the following within an Office client application.
 
--  Extend functionality (any Office application)
+- Extend functionality (any Office application)
 
--  Create new objects (Excel or PowerPoint)
+- Create new objects (Excel or PowerPoint)
  
 ### Extend Office functionality
 
 You can add new functionality to Office applications via the following:  
 
--  Custom ribbon buttons and menu commands (collectively called “add-in commands”)
+- Custom ribbon buttons and menu commands (collectively called “add-in commands”)
 
--  Insertable task panes
+- Insertable task panes
 
 Custom UI and task panes are specified in the add-in manifest.  
 
 #### Custom buttons and menu commands  
 
-You can add custom ribbon buttons and menu items to the ribbon in Office on the web and Windows. This makes it easy for users to access your add-in directly from their Office application. Command buttons can launch different actions such as showing a task pane with custom HTML or executing a JavaScript function.  
+You can add custom ribbon buttons and menu items to the ribbon in Office on the web and on Windows. This makes it easy for users to access your add-in directly from their Office application. Command buttons can launch different actions such as showing a task pane with custom HTML or executing a JavaScript function.  
 
 *Figure 3. Add-in commands in the ribbon*
 
-![Custom buttons and menu commands](../images/about-addins-addincommands.png)
+![Custom buttons and menu commands.](../images/about-addins-addincommands.png)
 
 #### Task panes  
 
@@ -89,11 +89,11 @@ You can use task panes in addition to add-in commands to enable users to interac
 
 *Figure 4. Task pane*
 
-![Use task panes in addition to add-in commands](../images/about-addins-taskpane.png)
+![Use task panes in addition to add-in commands.](../images/about-addins-taskpane.png)
 
 ### Extend Outlook functionality
 
-Outlook add-ins can extend the Office app ribbon and also display contextually next to an Outlook item when you're viewing or composing it. They can work with an email message, meeting request, meeting response, meeting cancellation, or appointment when a user is viewing a received item or replying or creating a new item. 
+Outlook add-ins can extend the Office app ribbon and also display contextually next to an Outlook item when you're viewing or composing it. They can work with an email message, meeting request, meeting response, meeting cancellation, or appointment when a user is viewing a received item or replying or creating a new item.
 
 Outlook add-ins can access contextual information from the item, such as an address or tracking ID, and then use that data to access additional information on the server and from web services to create compelling user experiences. In most cases, an Outlook add-in runs without modification in the Outlook application to provide a seamless experience on the desktop, web, and tablet and mobile devices.
 
@@ -105,7 +105,7 @@ You can embed web-based objects called content add-ins within Excel and PowerPoi
 
 *Figure 5. Content add-in*
 
-![Embed web-based objects called content add-ins](../images/about-addins-contentaddin.png)
+![Embed web-based objects called content add-ins.](../images/about-addins-contentaddin.png)
 
 ## Office JavaScript APIs
 

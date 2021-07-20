@@ -1,7 +1,7 @@
 ---
 title: Customize your Node.js SSO-enabled add-in
 description: Learn about customizing the SSO-enabled add-in that you created with the Yeoman generator.
-ms.date: 09/09/2020
+ms.date: 02/01/2021
 ms.prod: non-product-specific
 localization_priority: Normal
 ---
@@ -163,9 +163,9 @@ Complete the following steps for your add-in, to change the Microsoft Graph URL,
 
 ### Changes required for an Excel add-in (JavaScript)
 
-If your add-in is an Excel add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**:
+If your add-in is an Excel add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**.
 
-1. Find the `writeDataToOfficeDocument` function and replace it with the following function:
+1. Find the `writeDataToOfficeDocument` function and replace it with the following function.
 
     ```javascript
     export function writeDataToOfficeDocument(result) {
@@ -180,7 +180,7 @@ If your add-in is an Excel add-in that was created with JavaScript, make the fol
     }
     ```
 
-2. Find the `filterUserProfileInfo` function and replace it with the following function:
+2. Find the `filterUserProfileInfo` function and replace it with the following function.
 
     ```javascript
     function filterOneDriveInfo(result) {
@@ -193,7 +193,7 @@ If your add-in is an Excel add-in that was created with JavaScript, make the fol
     }
     ```
 
-3. Find the `writeDataToExcel` function and replace it with the following function:
+3. Find the `writeDataToExcel` function and replace it with the following function.
 
     ```javascript
     function writeDataToExcel(result) {
@@ -230,7 +230,7 @@ After you've made these changes, skip ahead to the [Try it out](#try-it-out) sec
 
 ### Changes required for an Excel add-in (TypeScript)
 
-If your add-in is an Excel add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function:
+If your add-in is an Excel add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function.
 
 ```typescript
 export function writeDataToOfficeDocument(result: Object): Promise<any> {
@@ -266,9 +266,9 @@ After you've made these changes, skip ahead to the [Try it out](#try-it-out) sec
 
 ### Changes required for an Outlook add-in (JavaScript)
 
-If your add-in is an Outlook add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**:
+If your add-in is an Outlook add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**.
 
-1. Find the `writeDataToOfficeDocument` function and replace it with the following function:
+1. Find the `writeDataToOfficeDocument` function and replace it with the following function.
 
     ```javascript
     export function writeDataToOfficeDocument(result) {
@@ -283,7 +283,7 @@ If your add-in is an Outlook add-in that was created with JavaScript, make the f
     }
     ```
 
-2. Find the `filterUserProfileInfo` function and replace it with the following function:
+2. Find the `filterUserProfileInfo` function and replace it with the following function.
 
     ```javascript
     function filterOneDriveInfo(result) {
@@ -296,7 +296,7 @@ If your add-in is an Outlook add-in that was created with JavaScript, make the f
     }
     ```
 
-3. Find the `writeDataToOutlook` function and replace it with the following function:
+3. Find the `writeDataToOutlook` function and replace it with the following function.
 
     ```javascript
     function writeDataToOutlook(result) {
@@ -328,7 +328,7 @@ After you've made these changes, skip ahead to the [Try it out](#try-it-out) sec
 
 ### Changes required for an Outlook add-in (TypeScript)
 
-If your add-in is an Outlook add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function:
+If your add-in is an Outlook add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function.
 
 ```typescript
 export function writeDataToOfficeDocument(result: Object): void {
@@ -359,9 +359,9 @@ After you've made these changes, skip ahead to the [Try it out](#try-it-out) sec
 
 ### Changes required for a PowerPoint add-in (JavaScript)
 
-If your add-in is a PowerPoint add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**:
+If your add-in is a PowerPoint add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**.
 
-1. Find the `writeDataToOfficeDocument` function and replace it with the following function:
+1. Find the `writeDataToOfficeDocument` function and replace it with the following function.
 
     ```javascript
     export function writeDataToOfficeDocument(result) {
@@ -376,7 +376,7 @@ If your add-in is a PowerPoint add-in that was created with JavaScript, make the
     }
     ```
 
-2. Find the `filterUserProfileInfo` function and replace it with the following function:
+2. Find the `filterUserProfileInfo` function and replace it with the following function.
 
     ```javascript
     function filterOneDriveInfo(result) {
@@ -389,7 +389,7 @@ If your add-in is a PowerPoint add-in that was created with JavaScript, make the
     }
     ```
 
-3. Find the `writeDataToPowerPoint` function and replace it with the following function:
+3. Find the `writeDataToPowerPoint` function and replace it with the following function.
 
     ```javascript
     function writeDataToPowerPoint(result) {
@@ -427,7 +427,7 @@ After you've made these changes, skip ahead to the [Try it out](#try-it-out) sec
 
 ### Changes required for a PowerPoint add-in (TypeScript)
 
-If your add-in is a PowerPoint add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function:
+If your add-in is a PowerPoint add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function.
 
 ```typescript
 export function writeDataToOfficeDocument(result: Object): void {
@@ -462,9 +462,9 @@ After you've made these changes, skip ahead to the [Try it out](#try-it-out) sec
 
 ### Changes required for a Word add-in (JavaScript)
 
-If your add-in is a Word add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**:
+If your add-in is a Word add-in that was created with JavaScript, make the following changes in **./src/helpers/documentHelper.js**.
 
-1. Find the `writeDataToOfficeDocument` function and replace it with the following function:
+1. Find the `writeDataToOfficeDocument` function and replace it with the following function.
 
     ```javascript
     export function writeDataToOfficeDocument(result) {
@@ -479,7 +479,7 @@ If your add-in is a Word add-in that was created with JavaScript, make the follo
     }
     ```
 
-2. Find the `filterUserProfileInfo` function and replace it with the following function:
+2. Find the `filterUserProfileInfo` function and replace it with the following function.
 
     ```javascript
     function filterOneDriveInfo(result) {
@@ -492,7 +492,7 @@ If your add-in is a Word add-in that was created with JavaScript, make the follo
     }
     ```
 
-3. Find the `writeDataToWord` function and replace it with the following function:
+3. Find the `writeDataToWord` function and replace it with the following function.
 
     ```javascript
     function writeDataToWord(result) {
@@ -528,7 +528,7 @@ After you've made these changes, skip ahead to the [Try it out](#try-it-out) sec
 
 ### Changes required for a Word add-in (TypeScript)
 
-If your add-in is a Word add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function:
+If your add-in is a Word add-in that was created with TypeScript, open **./src/taskpane/taskpane.ts**, find the `writeDataToOfficeDocument` function, and replace it with the following function.
 
 ```typescript
 export function writeDataToOfficeDocument(result: Object): Promise<any> {
@@ -581,54 +581,54 @@ Complete the following steps to try out an Excel, Word, or PowerPoint add-in.
 
 3. In the Office client application, choose the **Home** tab, and then choose the **Show Taskpane** button in the ribbon to open the add-in task pane. The following image shows this button in Excel.
 
-    ![Screenshot showing highlighted add-in button in Excel ribbon](../images/excel-quickstart-addin-3b.png)
+    ![Screenshot showing highlighted add-in button in Excel ribbon.](../images/excel-quickstart-addin-3b.png)
 
 4. At the bottom of the task pane, choose the **Read my OneDrive for Business** button to initiate the SSO process.
 
 5. If a dialog window appears to request permissions on behalf of the add-in, this means that SSO is not supported for your scenario and the add-in has instead fallen back to an alternate method of user authentication. This may occur when the tenant administrator hasn't granted consent for the add-in to access Microsoft Graph, or when the user isn't signed into Office with a valid Microsoft account or Microsoft 365 Education or Work account. Choose the **Accept** button in the dialog window to continue.
 
-    ![Screenshot showing permissions requested dialog with Accept button highlighted](../images/sso-permissions-request.png)
+    ![Screenshot showing permissions requested dialog with Accept button highlighted.](../images/sso-permissions-request.png)
 
     > [!NOTE]
     > After a user accepts this permissions request, they won't be prompted again in the future.
 
 6. The add-in reads data from the signed-in user's OneDrive for Business and writes the names of the top 10 files and folders to the document. The following image shows an example of file and folder names written to an Excel worksheet.
 
-    ![Screenshot showing OneDrive for Business information in Excel worksheet](../images/sso-onedrive-info-excel.png)
+    ![Screenshot showing OneDrive for Business information in Excel worksheet.](../images/sso-onedrive-info-excel.png)
 
 ### Outlook
 
 Complete the following steps to try out an Outlook add-in.
 
-1. In the root folder of the project, run the following command to build the project and start the local web server.
+1. In the root folder of the project, run the following command to build the project, start the local web server, and sideload your add-in. 
 
     > [!NOTE]
     > Office Add-ins should use HTTPS, not HTTP, even when you are developing. If you are prompted to install a certificate after you run the following command, accept the prompt to install the certificate that the Yeoman generator provides. You may also have to run your command prompt or terminal as an administrator for the changes to be made.
 
     ```command&nbsp;line
-    npm run dev-server
+    npm start
     ```
 
-2. Follow the instructions in [Sideload Outlook add-ins for testing](/outlook/add-ins/sideload-outlook-add-ins-for-testing) to sideload the add-in in Outlook. Make sure that you're signed in to Outlook with a user that's a member of the same Microsoft 365 organization as the Microsoft 365 administrator account that you used to connect to Azure while [configuring SSO](sso-quickstart.md#configure-sso) for the app. Doing so establishes the appropriate conditions for SSO to succeed.
+2. Make sure that you're signed in to Outlook with a user that's a member of the same Microsoft 365 organization as the Microsoft 365 administrator account that you used to connect to Azure while [configuring SSO](sso-quickstart.md#configure-sso) for the app. Doing so establishes the appropriate conditions for SSO to succeed.
 
 3. In Outlook, compose a new message.
 
 4. In the message compose window, choose the **Show Taskpane** button in the ribbon to open the add-in task pane.
 
-    ![Screenshot showing highlighted add-in ribbon button in Outlook compose message window](../images/outlook-sso-ribbon-button.png)
+    ![Screenshot showing highlighted add-in ribbon button in Outlook compose message window.](../images/outlook-sso-ribbon-button.png)
 
 5. At the bottom of the task pane, choose the **Read my OneDrive for Business** button to initiate the SSO process.
 
 6. If a dialog window appears to request permissions on behalf of the add-in, this means that SSO is not supported for your scenario and the add-in has instead fallen back to an alternate method of user authentication. This may occur when the tenant administrator hasn't granted consent for the add-in to access Microsoft Graph, or when the user isn't signed into Office with a valid Microsoft account or Microsoft 365 Education or Work account. Choose the **Accept** button in the dialog window to continue.
 
-    ![Screenshot of permissions requested dialog with Accept button highlighted](../images/sso-permissions-request.png)
+    ![Screenshot of permissions requested dialog with Accept button highlighted.](../images/sso-permissions-request.png)
 
     > [!NOTE]
     > After a user accepts this permissions request, they won't be prompted again in the future.
 
 7. The add-in reads data from the signed-in user's OneDrive for Business and writes the names of the top 10 files and folders to the body of the email message.
 
-    ![Screenshot showing OneDrive for Business information in Outlook compose message window](../images/sso-onedrive-info-outlook.png)
+    ![Screenshot showing OneDrive for Business information in Outlook compose message window.](../images/sso-onedrive-info-outlook.png)
 
 ## Next steps
 

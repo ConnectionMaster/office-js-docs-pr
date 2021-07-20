@@ -1,7 +1,7 @@
 ---
 title: Privacy and security for Office Add-ins
 description: 'Learn about the privacy and security aspects of the Office Add-ins platform.'
-ms.date: 10/06/2020
+ms.date: 03/19/2021
 localization_priority: Normal
 ---
 
@@ -37,13 +37,13 @@ On Windows desktops, Protected Mode in Internet Explorer must be enabled for the
 
 *Figure 1. Office Add-ins runtime environment in Windows-based desktop and tablet clients*
 
-![Diagram showing rich-client infrastructure](../images/dk2-agave-overview-02.png)
+![Diagram showing rich-client infrastructure.](../images/dk2-agave-overview-02.png)
 
 As shown in the following figure, on a Mac OS X desktop, the add-in web page is hosted inside a sandboxed WebKit runtime host process which helps provide similar level of security and performance protection.
 
 *Figure 2. Office Add-ins runtime environment in Mac OS X clients*
 
-![Diagram showing apps for Office runtime environment on Mac OS X](../images/dk2-agave-overview-mac-02.png)
+![Diagram showing apps for Office runtime environment on Mac OS X.](../images/dk2-agave-overview-mac-02.png)
 
 The Office Add-ins runtime manages interprocess communication, the translation of JavaScript API calls and events into native ones, as well as UI remoting support to enable the add-in to be rendered inside the document, in a task pane, or adjacent to an email message, meeting request, or appointment.
 
@@ -53,7 +53,7 @@ In supported web clients, Office Add-ins are hosted in an **iframe** that runs u
 
 *Figure 3. Infrastructure that supports Office Add-ins in Office web clients*
 
-![Diagram showing web-client infrastructure](../images/dk2-agave-overview-03.png)
+![Diagram showing web-client infrastructure.](../images/dk2-agave-overview-03.png)
 
 ## Add-in integrity in AppSource
 
@@ -80,6 +80,9 @@ This section describes the protection offered by the Office Add-ins platform fro
 ### End users' perspective
 
 Office Add-ins are built using web technologies that run in a browser control or **iframe**. Because of this, using add-ins is similar to browsing to web sites on the Internet or intranet. Add-ins can be external to an organization (if you acquire the add-in from AppSource) or internal (if you acquire the add-in from an Exchange Server add-in catalog, SharePoint app catalog, or file share on an organization's network). Add-ins have limited access to the network and most add-ins can read or write to the active document or mail item. The add-in platform applies certain constraints before a user or administrator installs or starts an add-in. But as with any extensibility model, users should be cautious before starting an unknown add-in.
+
+> [!NOTE]
+> Users may see a security prompt to trust the domain the first time an add-in is loaded. This will happen if the add-in's domain host is outside of the domain of Exchange on-premise or Office Online Server.
 
 The add-in platform addresses end users' privacy concerns in the following ways.
 
@@ -152,7 +155,7 @@ Because Office Add-ins are webpages that run in a web browser control, they must
 
 One way to overcome this limitation is to use JSON/P -- provide a proxy for the web service by including a **script** tag with a **src** attribute that points to some script hosted on another domain. You can programmatically create the **script** tags, dynamically creating the URL to which to point the **src** attribute, and passing parameters to the URL via URI query parameters. Web service providers create and host JavaScript code at specific URLs, and return different scripts depending on the URI query parameters. These scripts then execute where they are inserted and work as expected.
 
-The following is an example of JSON/P in the Outlook add-in example. 
+The following is an example of JSON/P in the Outlook add-in example.
 
 ```js
 // Dynamically create an HTML SCRIPT element that obtains the details for the specified video.
@@ -186,7 +189,7 @@ An ill-intentioned user could attack the origin of an add-in by entering malicio
 
 - If you are using jQuery, use the [.text()](https://api.jquery.com/text/) method instead of the [.html()](https://api.jquery.com/html/) method.
 
-- Use the [toStaticHTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference) method to remove any dynamic HTML elements and attributes in users' input before passing it to **innerHTML**.
+- Use the [toStaticHTML](https://developer.mozilla.org/docs/Web/HTML/Reference) method to remove any dynamic HTML elements and attributes in users' input before passing it to **innerHTML**.
 
 - Use the [encodeURIComponent](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/encodeuricomponent) or [encodeURI](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/encodeuri) function to encode text that is intended to be a URL that comes from or contains user input.
 

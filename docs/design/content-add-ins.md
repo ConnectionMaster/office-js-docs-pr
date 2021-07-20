@@ -1,7 +1,7 @@
 ---
 title: Content Office Add-ins
 description: 'Content add-ins are surfaces that can be embedded directly into Excel or PowerPoint documents that give users access to interface controls that run code to modify documents or display data from a data source.'
-ms.date: 07/07/2020
+ms.date: 05/12/2021
 localization_priority: Normal
 ---
 
@@ -11,7 +11,7 @@ Content add-ins are surfaces that can be embedded directly into Excel or PowerPo
 
 *Figure 1. Typical layout for content add-ins*
 
-![Typical layout for content add-ins in an Office application](../images/overview-with-app-content.png)
+![Typical layout for content add-ins in an Office application.](../images/overview-with-app-content.png)
 
 ## Best practices
 
@@ -30,13 +30,13 @@ For Windows, the personality menu measures 12x32 pixels, as shown.
 
 *Figure 2. Personality menu on Windows*
 
-![12x32-pixel personality menu on Windows desktop](../images/personality-menu-win.png)
+![12x32-pixel personality menu on Windows desktop.](../images/personality-menu-win.png)
 
 For Mac, the personality menu measures 26x26 pixels, but floats 8 pixels in from the right and 6 pixels from the top, which increases the occupied space to 34x32 pixels, as shown.
 
 *Figure 3. Personality menu on Mac*
 
-![34x32-pixel personality menu on Mac desktop](../images/personality-menu-mac.png)
+![34x32-pixel personality menu on Mac desktop.](../images/personality-menu-mac.png)
 
 ## Implementation
 
@@ -51,6 +51,6 @@ For a sample that implements a content add-in, see [Excel Content Add-in Humongo
 ## See also
 
 - [Office client application and platform availability for Office Add-ins](../overview/office-add-in-availability.md)
-- [Office UI Fabric in Office Add-ins](../design/office-ui-fabric.md)
+- [Fabric Core in Office Add-ins](fabric-core.md)
 - [UX design patterns for Office Add-ins](../design/ux-design-pattern-templates.md)
 - [Requesting permissions for API use in add-ins](../develop/requesting-permissions-for-api-use-in-content-and-task-pane-add-ins.md)

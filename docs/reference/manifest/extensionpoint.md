@@ -1,7 +1,7 @@
 ---
 title: ExtensionPoint element in the manifest file
 description: Defines where an add-in exposes functionality in the Office UI.
-ms.date: 02/01/2021
+ms.date: 05/11/2021
 localization_priority: Normal
 ---
 
@@ -88,7 +88,7 @@ The following examples show how to use the **ExtensionPoint** element with **Pri
 - [Module](#module) (Can only be used in the [DesktopFormFactor](desktopformfactor.md).)
 - [MobileMessageReadCommandSurface](#mobilemessagereadcommandsurface)
 - [MobileOnlineMeetingCommandSurface](#mobileonlinemeetingcommandsurface)
-- [LaunchEvent](#launchevent-preview)
+- [LaunchEvent](#launchevent)
 - [Events](#events)
 - [DetectedEntity](#detectedentity)
 
@@ -220,6 +220,9 @@ This extension point puts buttons on the ribbon for the form that's displayed to
 
 This extension point puts buttons on the ribbon for the module extension.
 
+> [!IMPORTANT]
+> Registering [Mailbox](../objectmodel/preview-requirement-set/office.context.mailbox.md#events) and [Item](../objectmodel/preview-requirement-set/office.context.mailbox.item.md#events) events is not available with this extension point.
+
 #### Child elements
 
 |  Element |  Description  |
@@ -259,7 +262,9 @@ This extension point puts buttons in the command surface for the mail read view 
 This extension point puts a mode-appropriate toggle in the command surface for an appointment in the mobile form factor. A meeting organizer can create an online meeting. An attendee can subsequently join the online meeting. To learn more about this scenario, see the [Create an Outlook mobile add-in for an online-meeting provider](../../outlook/online-meeting.md) article.
 
 > [!NOTE]
-> This extension point is only supported on Android with a Microsoft 365 subscription.
+> This extension point is only supported on Android and iOS with a Microsoft 365 subscription.
+>
+> Registering [Mailbox](../objectmodel/preview-requirement-set/office.context.mailbox.md#events) and [Item](../objectmodel/preview-requirement-set/office.context.mailbox.item.md#events) events is not available with this extension point.
 
 #### Child elements
 
@@ -297,12 +302,12 @@ The `Icon` images should be in grayscale using hex code `#919191` or its equival
 </ExtensionPoint>
 ```
 
-### LaunchEvent (preview)
+### LaunchEvent
 
-> [!NOTE]
-> This extension point is only supported in [preview](../objectmodel/preview-requirement-set/outlook-requirement-set-preview.md) in Outlook on the web and Windows with a Microsoft 365 subscription.
+This extension point enables an add-in to activate based on supported events in the desktop form factor. To learn more about this scenario and for the full list of supported events, see the [Configure your Outlook add-in for event-based activation](../../outlook/autolaunch.md) article.
 
-This extension point enables an add-in to activate based on supported events in the desktop form factor. Currently, the only supported events are `OnNewMessageCompose` and `OnNewAppointmentOrganizer`. To learn more about this scenario, see the [Configure your Outlook add-in for event-based activation](../../outlook/autolaunch.md) article.
+> [!IMPORTANT]
+> Registering [Mailbox](../objectmodel/preview-requirement-set/office.context.mailbox.md#events) and [Item](../objectmodel/preview-requirement-set/office.context.mailbox.item.md#events) events is not available with this extension point.
 
 #### Child elements
 
@@ -328,6 +333,9 @@ This extension point enables an add-in to activate based on supported events in 
 
 This extension point adds an event handler for a specified event. For more information about using this extension point, see [On-send feature for Outlook add-ins](../../outlook/outlook-on-send-addins.md).
 
+> [!IMPORTANT]
+> Registering [Mailbox](../objectmodel/preview-requirement-set/office.context.mailbox.md#events) and [Item](../objectmodel/preview-requirement-set/office.context.mailbox.item.md#events) events is not available with this extension point.
+
 | Element | Description  |
 |:-----|:-----|
 |  [Event](event.md) |  Specifies the event and event handler function.  |
@@ -343,6 +351,9 @@ This extension point adds an event handler for a specified event. For more infor
 ### DetectedEntity
 
 This extension point adds a contextual add-in activation on a specified entity type.
+
+> [!IMPORTANT]
+> Registering [Mailbox](../objectmodel/preview-requirement-set/office.context.mailbox.md#events) and [Item](../objectmodel/preview-requirement-set/office.context.mailbox.item.md#events) events is not available with this extension point.
 
 The containing [VersionOverrides](versionoverrides.md) element must have an `xsi:type` attribute value of `VersionOverridesV1_1`.
 

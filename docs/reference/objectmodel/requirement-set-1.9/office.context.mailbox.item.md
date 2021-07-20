@@ -1,7 +1,7 @@
 ---
 title: Office.context.mailbox.item - requirement set 1.9
 description: 'Outlook Mailbox API requirement set 1.9 version of the Item object model.'
-ms.date: 10/14/2020
+ms.date: 05/17/2021
 localization_priority: Normal
 ---
 
@@ -164,7 +164,10 @@ localization_priority: Normal
 
 You can subscribe to and unsubscribe from the following events using `addHandlerAsync` and `removeHandlerAsync` respectively.
 
-| Event | Description | Minimum<br>requirement set |
+> [!IMPORTANT]
+> Events are only available with task pane implementation.
+
+| [Event](/javascript/api/office/office.eventtype) | Description | Minimum<br>requirement set |
 |---|---|:---:|
 |`AppointmentTimeChanged`| The date or time of the selected appointment or series has changed. | [1.7](../requirement-set-1.7/outlook-requirement-set-1.7.md) |
 |`AttachmentsChanged`| An attachment has been added to or removed from the item. | [1.8](../requirement-set-1.8/outlook-requirement-set-1.8.md) |

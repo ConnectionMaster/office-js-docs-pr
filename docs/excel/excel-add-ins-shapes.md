@@ -10,13 +10,13 @@ localization_priority: Normal
 Excel defines shapes as any object that sits on the drawing layer of Excel. That means anything outside of a cell is a shape. This article describes how to use geometric shapes, lines, and images in conjunction with the [Shape](/javascript/api/excel/excel.shape) and [ShapeCollection](/javascript/api/excel/excel.shapecollection) APIs. [Charts](/javascript/api/excel/excel.chart) are covered in their own article, [Work with charts using the Excel JavaScript API](excel-add-ins-charts.md).
 
 The following image shows shapes which form a thermometer.
-![Image of a thermometer made as an Excel shape](../images/excel-shapes.png)
+![Image of a thermometer made as an Excel shape.](../images/excel-shapes.png)
 
 ## Create shapes
 
 Shapes are created through and stored in a worksheet's shape collection (`Worksheet.shapes`). `ShapeCollection` has several `.add*` methods for this purpose. All shapes have names and IDs generated for them when they are added to the collection. These are the `name` and `id` properties, respectively. `name` can be set by your add-in for easy retrieval with the `ShapeCollection.getItem(name)` method.
 
-The following types of shapes are added using the associated method:
+The following types of shapes are added using the associated method.
 
 | Shape | Add Method | Signature |
 |-------|------------|-----------|

@@ -1,11 +1,11 @@
 ---
 title: Office.context.mailbox - preview requirement set
 description: 'Outlook Mailbox API preview requirement set version of the Mailbox object model.'
-ms.date: 10/14/2020
+ms.date: 05/17/2021
 localization_priority: Normal
 ---
 
-# mailbox (Preview requirement set)
+# mailbox (preview requirement set)
 
 ### [Office](office.md)[.context](office.context.md).mailbox
 
@@ -57,7 +57,10 @@ Provides access to the Outlook add-in object model for Microsoft Outlook.
 
 You can subscribe to and unsubscribe from the following events using [addHandlerAsync](/javascript/api/outlook/office.mailbox?view=outlook-js-preview&preserve-view=true#addhandlerasync-eventtype--handler--options--callback-) and [removeHandlerAsync](/javascript/api/outlook/office.mailbox?view=outlook-js-preview&preserve-view=true#removehandlerasync-eventtype--options--callback-) respectively.
 
-| Event | Description | Minimum<br>requirement set |
+> [!IMPORTANT]
+> Events are only available with task pane implementation.
+
+| [Event](/javascript/api/office/office.eventtype) | Description | Minimum<br>requirement set |
 |---|---|:---:|
 |`ItemChanged`| A different Outlook item is selected for viewing while the task pane is pinned. | [1.5](../requirement-set-1.5/outlook-requirement-set-1.5.md) |
 |`OfficeThemeChanged`| The Office theme on the mailbox has changed. | [Preview](../preview-requirement-set/outlook-requirement-set-preview.md) |

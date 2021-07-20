@@ -13,13 +13,13 @@ Outlook mobile add-ins are supported on all Microsoft 365 business accounts, Out
 
 **An example task pane in Outlook on iOS**
 
-![A screenshot of a task pane in Outlook on iOS](../images/outlook-mobile-addin-taskpane.png)
+![Screenshot of a task pane in Outlook on iOS.](../images/outlook-mobile-addin-taskpane.png)
 
 <br/>
 
 **An example task pane in Outlook on Android**
 
-![A screenshot of a task pane in Outlook on Android](../images/outlook-mobile-addin-taskpane-android.png)
+![Screenshot of a task pane in Outlook on Android.](../images/outlook-mobile-addin-taskpane-android.png)
 
 > [!IMPORTANT]
 > Add-ins don't work in the modern version of Outlook in a mobile browser. For more information, see [Outlook on your mobile browser is being upgraded](https://techcommunity.microsoft.com/t5/outlook-blog/outlook-on-your-mobile-browser-is-being-upgraded/ba-p/1125816).
@@ -27,8 +27,8 @@ Outlook mobile add-ins are supported on all Microsoft 365 business accounts, Out
 ## What's different on mobile?
 
 - The small size and quick interactions make designing for mobile a challenge. To ensure quality experiences for our customers, we are setting strict validation criteria that must be met by an add-in declaring mobile support, in order to be approved in AppSource.
-    - The add-in **MUST** adhere to the [UI guidelines](outlook-addin-design.md).
-    - The scenario for the add-in **MUST** [make sense on mobile](#what-makes-a-good-scenario-for-mobile-add-ins).
+  - The add-in **MUST** adhere to the [UI guidelines](outlook-addin-design.md).
+  - The scenario for the add-in **MUST** [make sense on mobile](#what-makes-a-good-scenario-for-mobile-add-ins).
 
 - In general, only Message Read mode is supported at this time. That means `MobileMessageReadCommandSurface` is the only [ExtensionPoint](../reference/manifest/extensionpoint.md#mobilemessagereadcommandsurface) you should declare in the mobile section of your manifest. However, Appointment Organizer mode is supported for online meeting provider integrated add-ins which instead declare the [MobileOnlineMeetingCommandSurface extension point](../reference/manifest/extensionpoint.md#mobileonlinemeetingcommandsurface). See the [Create an Outlook mobile add-in for an online-meeting provider](online-meeting.md) article for more about this scenario.
 
@@ -50,13 +50,13 @@ Here are examples of scenarios that make sense in Outlook Mobile.
 
 **An example user interaction to create a Trello card from an email message on iOS**
 
-![An animated GIF showing user interaction with an Outlook Mobile add-in on iOS](../images/outlook-mobile-addin-interaction.gif)
+![Animated GIF showing user interaction with an Outlook Mobile add-in on iOS.](../images/outlook-mobile-addin-interaction.gif)
 
 <br/>
 
 **An example user interaction to create a Trello card from an email message on Android**
 
-![An animated GIF showing user interaction with an Outlook Mobile add-in on Android](../images/outlook-mobile-addin-interaction-android.gif)
+![Animated GIF showing user interaction with an Outlook Mobile add-in on Android.](../images/outlook-mobile-addin-interaction-android.gif)
 
 ## Testing your add-ins on mobile
 

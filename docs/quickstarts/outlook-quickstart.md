@@ -1,7 +1,7 @@
 ---
 title: Build your first Outlook add-in
 description: Learn how to build a simple Outlook task pane add-in by using the Office JS API.
-ms.date: 02/09/2021
+ms.date: 06/10/2021
 ms.prod: outlook
 localization_priority: Priority
 ---
@@ -12,7 +12,7 @@ In this article, you'll walk through the process of building an Outlook task pan
 
 ## Create the add-in
 
-You can create an Office Add-in by using the [Yeoman generator for Office Add-ins](https://github.com/OfficeDev/generator-office) or Visual Studio. The Yeoman generator creates a Node.js project that can be managed with Visual Studio Code or any other editor, whereas Visual Studio creates a Visual Studio solution.  Select the tab for the one you'd like to use and then follow the instructions to create your add-in and test it locally.
+You can create an Office Add-in by using the [Yeoman generator for Office Add-ins](https://github.com/OfficeDev/generator-office) or Visual Studio. The Yeoman generator creates a Node.js project that can be managed with Visual Studio Code or any other editor, whereas Visual Studio creates a Visual Studio solution. Select the tab for the one you'd like to use and then follow the instructions to create your add-in and test it locally.
 
 # [Yeoman generator](#tab/yeomangenerator)
 
@@ -22,7 +22,7 @@ You can create an Office Add-in by using the [Yeoman generator for Office Add-in
 
 - [Node.js](https://nodejs.org/) (the latest [LTS](https://nodejs.org/about/releases) version)
 
-- The latest version of [Yeoman](https://github.com/yeoman/yo) and the [Yeoman generator for Office Add-ins](https://github.com/OfficeDev/generator-office). To install these tools globally, run the following command via the command prompt:
+- The latest version of [Yeoman](https://github.com/yeoman/yo) and the [Yeoman generator for Office Add-ins](https://github.com/OfficeDev/generator-office). To install these tools globally, run the following command via the command prompt.
 
     ```command&nbsp;line
     npm install -g yo generator-office
@@ -43,7 +43,7 @@ You can create an Office Add-in by using the [Yeoman generator for Office Add-in
 
     - **Which Office client application would you like to support?** - `Outlook`
 
-    ![Screenshot showing the prompts and answers for the Yeoman generator in a command line interface](../images/yo-office-outlook-1.png)
+    ![Screenshot showing the prompts and answers for the Yeoman generator in a command line interface.](../images/yo-office-outlook-1.png)
 
     After you complete the wizard, the generator will create the project and install supporting Node components.
 
@@ -93,10 +93,10 @@ The add-in project that you've created with the Yeoman generator contains sample
 > [!NOTE]
 > Office Add-ins should use HTTPS, not HTTP, even when you are developing. If you are prompted to install a certificate after you run the following command, accept the prompt to install the certificate that the Yeoman generator provides. You may also have to run your command prompt or terminal as an administrator for the changes to be made.
 
-1. Run the following command in the root directory of your project. When you run this command, the local web server will start (if it's not already running).
+1. Run the following command in the root directory of your project. When you run this command, the local web server will start (if it's not already running) and your add-in will be sideloaded.
 
     ```command&nbsp;line
-    npm run dev-server
+    npm start
     ```
 
 1. Follow the instructions in [Sideload Outlook add-ins for testing](../outlook/sideload-outlook-add-ins-for-testing.md) to sideload the add-in in Outlook.
@@ -105,16 +105,16 @@ The add-in project that you've created with the Yeoman generator contains sample
 
 1. Choose the **Home** tab (or the **Message** tab if you opened the message in a new window), and then choose the **Show Taskpane** button in the ribbon to open the add-in task pane.
 
-    ![Screenshot showing a message window in Outlook with the add-in ribbon button highlighted](../images/quick-start-button-1.png)
+    ![Screenshot showing a message window in Outlook with the add-in ribbon button highlighted.](../images/quick-start-button-1.png)
 
     > [!NOTE]
     > If you receive the error "We can't open this add-in from localhost" in the task pane, follow the steps outlined in the [troubleshooting article](/office/troubleshoot/office-suite-issues/cannot-open-add-in-from-localhost).
 
 1. Scroll to the bottom of the task pane and choose the **Run** link to write the message subject to the task pane.
 
-    ![Screenshot showing the add-in's task pane with the Run link highlighted](../images/quick-start-task-pane-2.png)
+    ![Screenshot showing the add-in's task pane with the Run link highlighted.](../images/quick-start-task-pane-2.png)
 
-    ![Screenshot of the add-in's task pane displaying message subject](../images/quick-start-task-pane-3.png)
+    ![Screenshot of the add-in's task pane displaying message subject.](../images/quick-start-task-pane-3.png)
 
 ### Next steps
 
@@ -265,21 +265,21 @@ When you've completed the wizard, Visual Studio creates a solution that contains
 1. In the **Connect to Exchange email account** dialog box, enter the email address and password for your [Microsoft account](https://account.microsoft.com/account) and then choose **Connect**. When the Outlook.com login page opens in a browser, sign in to your email account with the same credentials as you entered previously.
 
     > [!NOTE]
-    > If the **Connect to Exchange email account** dialog box repeatedly prompts you to sign in, Basic Auth may be disabled for accounts on your Microsoft 365 tenant. To test this add-in, sign in using a [Microsoft account](https://account.microsoft.com/account) instead.
+    > If the **Connect to Exchange email account** dialog box repeatedly prompts you to sign in or you receive an error that you are unauthorized, Basic Auth may be disabled for accounts on your Microsoft 365 tenant. To test this add-in, try signing in again after setting the **Use multi-factor auth** property to True in the Web Add-in project properties dialog, or sign in using a [Microsoft account](https://account.microsoft.com/account) instead.
 
 1. In Outlook on the web, select or open a message.
 
 1. Within the message, locate the ellipsis for the overflow menu containing the add-in's button.
 
-    ![A screenshot of a message window in Outlook on the web with the ellipsis highlighted](../images/quick-start-button-owa-1.png)
+    ![Screenshot of a message window in Outlook on the web with the ellipsis highlighted.](../images/quick-start-button-owa-1.png)
 
 1. Within the overflow menu, locate the add-in's button.
 
-    ![A screenshot of a message window in Outlook on the web with the add-in button highlighted](../images/quick-start-button-owa-2.png)
+    ![Screenshot of a message window in Outlook on the web with the add-in button highlighted.](../images/quick-start-button-owa-2.png)
 
 1. Click the button to open the add-in's task pane.
 
-    ![A screenshot of the add-in's task pane in Outlook on the web displaying message properties](../images/quick-start-task-pane-owa-1.png)
+    ![Screenshot of the add-in's task pane in Outlook on the web displaying message properties.](../images/quick-start-task-pane-owa-1.png)
 
     > [!NOTE]
     > If the task pane doesn't load, try to verify by opening it in a browser on the same machine.

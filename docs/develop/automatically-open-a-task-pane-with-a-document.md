@@ -1,7 +1,7 @@
 ---
 title: Automatically open a task pane with a document
 description: 'Learn how to configure an Office Add-in to open automatically when a document opens.'
-ms.date: 07/07/2020
+ms.date: 05/24/2021
 localization_priority: Normal
 ---
 
@@ -30,7 +30,7 @@ The autoopen feature is currently <!-- in **developer preview** and it is only -
 
 ## Best practices
 
-Apply the following best practices when you use the autoopen feature:
+Apply the following best practices when you use the autoopen feature.
 
 - Use the autoopen feature when it will help make your add-in users more efficient, such as:
   - When the document needs the add-in in order to function properly. For example, a spreadsheet that includes stock values that are periodically refreshed by an add-in. The add-in should open automatically when the spreadsheet is opened to keep the values up to date.
@@ -139,7 +139,7 @@ Setting `visibility` to "1" is a good choice when the add-in and the template or
 > [!NOTE]
 > If you want to distribute your add-in with the document, so that users are prompted to install it, you must set the visibility property to 1. You can only do this via Open XML.
 
-An easy way to write the XML is to first run your add-in and [tag the document on the client side](#tag-the-document-on-the-client-side) to write the value, and then save the document and inspect the XML that is generated. Office will detect and provide the appropriate attribute values. You can also use the [Open XML SDK 2.5 Productivity Tool](https://www.microsoft.com/download/details.aspx?id=30425) tool to generate C# code to programmatically add the markup based on the XML you generate.
+An easy way to write the XML is to first run your add-in and [tag the document on the client side](#tag-the-document-on-the-client-side) to write the value, and then save the document and inspect the XML that is generated.Office will detect and provide the appropriate attribute values. You can also use the [Open XML SDK Productivity Tool](https://www.nuget.org/packages/Open-XML-SDK) to generate C# code to programmatically add the markup based on the XML you generate.
 
 ## Test and verify opening task panes
 

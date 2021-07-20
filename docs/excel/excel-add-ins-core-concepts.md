@@ -1,7 +1,8 @@
 ---
 title: Excel JavaScript object model in Office Add-ins
 description: 'Learn the key object types in the Excel JavaScript APIs and how to use them to build add-ins for Excel.'
-ms.date: 09/03/2020
+ms.date: 04/05/2021
+ms.prod: excel
 localization_priority: Priority
 ---
 
@@ -27,7 +28,7 @@ While you'll likely use the Excel JavaScript API to develop the majority of func
 
 The following image illustrates when you might use the Excel JavaScript API or the Common APIs.
 
-![Image of the differences between the Excel JS API and Common APIs](../images/excel-js-api-common-api.png)
+![Differences between the Excel JS API and Common APIs.](../images/excel-js-api-common-api.png)
 
 ## Excel-specific object model
 
@@ -38,6 +39,8 @@ To understand the Excel APIs, you must understand how the components of a workbo
 * A **Range** represents a group of contiguous cells.
 * **Ranges** are used to create and place **Tables**, **Charts**, **Shapes**, and other data visualization or organization objects.
 * **Workbooks** contain collections of some of those data objects (such as **Tables**) for the entire **Workbook**.
+
+[!include[Excel cells and ranges note](../includes/note-excel-cells-and-ranges.md)]
 
 ### Ranges
 
@@ -89,11 +92,11 @@ Excel.run(function (context) {
 });
 ```
 
-This sample creates the following data in the current worksheet:
+This sample creates the following data in the current worksheet.
 
 ![A sales record showing value rows, a formula column, and formatted headers.](../images/excel-overview-range-sample.png)
 
-For more information, see [Work with ranges using the Excel JavaScript API](excel-add-ins-ranges.md).
+For more information, see [Set and get range values, text, or formulas using the Excel JavaScript API](excel-add-ins-ranges-set-get-values.md).
 
 ### Charts, tables, and other data objects
 
@@ -113,7 +116,7 @@ Excel.run(function (context) {
 });
 ```
 
-Using this sample code on the worksheet with the previous data creates the following table:
+Using this sample code on the worksheet with the previous data creates the following table.
 
 ![A table made from the previous sales record.](../images/excel-overview-table-sample.png)
 
@@ -134,7 +137,7 @@ Excel.run(function (context) {
 });
 ```
 
-Running this sample on the worksheet with the previous table creates the following chart:
+Running this sample on the worksheet with the previous table creates the following chart.
 
 ![A column chart showing quantities of three items from the previous sales record.](../images/excel-overview-chart-sample.png)
 

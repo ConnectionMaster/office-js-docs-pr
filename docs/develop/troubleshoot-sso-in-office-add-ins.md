@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot error messages for single sign-on (SSO)
 description: 'Guidance about how to troubleshoot problems with single sign-on (SSO) in Office Add-ins, and handle special conditions or errors.'
-ms.date: 02/09/2021
+ms.date: 02/12/2021
 localization_priority: Normal
 ---
 
@@ -11,7 +11,7 @@ This article provides some guidance about how to troubleshoot problems with sing
 
 > [!NOTE]
 > The Single Sign-on API is currently supported for Word, Excel, Outlook, and PowerPoint. For more information about where the Single Sign-on API is currently supported, see [IdentityAPI requirement sets](../reference/requirement-sets/identity-api-requirement-sets.md).
-> If you are working with an Outlook add-in, be sure to enable Modern Authentication for the Office tenancy. For information about how to do this, see [Exchange Online: How to enable your tenant for modern authentication](https://social.technet.microsoft.com/wiki/contents/articles/32711.exchange-online-how-to-enable-your-tenant-for-modern-authentication.aspx).
+> If you are working with an Outlook add-in, be sure to enable Modern Authentication for the Microsoft 365 tenancy. For information about how to do this, see [Exchange Online: How to enable your tenant for modern authentication](https://social.technet.microsoft.com/wiki/contents/articles/32711.exchange-online-how-to-enable-your-tenant-for-modern-authentication.aspx).
 
 ## Debugging tools
 
@@ -54,7 +54,7 @@ The user aborted sign in or consent; for example, by choosing **Cancel** on the 
 
 ### 13003
 
-User Type not supported. The user isn't signed into Office with a valid Microsoft account or Microsoft 365 Education or work account. This may happen if Office runs with an on-premises domain account, for example. Your code should fall back to an alternate system of user authentication. For more information, see [Requirements and Best Practices](../develop/sso-in-office-add-ins.md#requirements-and-best-practices).
+User Type not supported. The user isn't signed into Office with a valid Microsoft account or Microsoft 365 Education or work account. This may happen if Office runs with an on-premises domain account, for example. Your code should fall back to an alternate system of user authentication. In Outlook, this error may also occur if [modern authentication is disabled](/exchange/clients-and-mobile-in-exchange-online/enable-or-disable-modern-authentication-in-exchange-online) for the user's tenant in Exchange Online. For more information, see [Requirements and Best Practices](../develop/sso-in-office-add-ins.md#requirements-and-best-practices).
 
 ### 13004
 
@@ -93,7 +93,7 @@ The user is running the add-in in Office on Microsoft Edge or Internet Explorer.
 
 There are several possible causes:
 
-- The add-in is running on a platform that does not support the `getAccessToken` API. For example, it is not supported on iPad. See also [Identity API Requirement Sets](../reference/requirement-sets/identity-api-requirement-sets.md).
+- The add-in is running on a platform that does not support the `getAccessToken` API. For example, it is not supported on iPad. See also [Identity API requirement sets](../reference/requirement-sets/identity-api-requirement-sets.md).
 - The `forMSGraphAccess` option was passed in the call to `getAccessToken` and the user obtained the add-in from AppSource. In this scenario, the tenant admin has not granted consent to the add-in for the Microsoft Graph scopes (permissions) that it needs. Recalling `getAccessToken` with the `allowConsentPrompt` will not solve the problem because Office is allowed to prompt the user for consent to only the AAD `profile` scope.
 
 Your code should fall back to an alternate system of user authentication.

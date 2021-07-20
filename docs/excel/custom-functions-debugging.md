@@ -1,12 +1,12 @@
 ---
-ms.date: 07/10/2020
+ms.date: 04/12/2021
 description: Learn how to debug your Excel custom functions that don't use a task pane.
 title: UI-less custom functions debugging
 localization_priority: Normal
 ---
 # UI-less custom functions debugging
 
-Debugging for custom functions that don't use a task pane or other user interface elements (UI-less custom functions) can be accomplished by multiple means, depending on what platform you're using.
+This article discusses debugging *only* for custom functions that don't use a task pane or other user interface elements (UI-less custom functions). 
 
 [!include[Excel custom functions note](../includes/excel-custom-functions-note.md)]
 
@@ -27,7 +27,9 @@ On Mac:
 
 ## Requirements
 
-Before starting to debug, you should use the [Yeoman generator for Office Add-ins](https://github.com/OfficeDev/generator-office) to create a custom functions project. For guidance about how to create a custom functions project, see the [custom functions tutorial](../tutorials/excel-tutorial-create-custom-functions.md).
+This debugging process works **only** for UI-less custom functions, which don't use a task pane or other UI elements. A UI-less custom function can be created by following the steps in the [Create custom functions in Excel](../tutorials/excel-tutorial-create-custom-functions.md) tutorial, and then removing all of the task pane and UI elements that are installed by the [Yeoman generator for Office Add-ins](https://www.npmjs.com/package/generator-office).
+
+Note that this debugging process is not compatible with custom functions projects using a [shared runtime](../develop/configure-your-add-in-to-use-a-shared-runtime.md).
 
 ## Use the VS Code debugger for Excel Desktop
 
@@ -44,9 +46,9 @@ You can use VS Code to debug UI-less custom functions in Office Excel on the des
 
 ### Start the VS Code debugger
 
-4. Choose **View > Debug** or enter **Ctrl+Shift+D** to switch to debug view.
-5. From the Debug options, choose **Excel Desktop**.
-6. Select **F5** (or choose **Debug -> Start Debugging** from the menu) to begin debugging. A new Excel workbook will open with your add-in already sideloaded and ready to use.
+4. Choose **View > Run** or enter **Ctrl+Shift+D** to switch to debug view.
+5. From the Run drop-down menu, choose **Excel Desktop (Custom Functions)**.
+6. Select **F5** (or select **Run -> Start Debugging** from the menu) to begin debugging. A new Excel workbook will open with your add-in already sideloaded and ready to use.
 
 ### Start debugging
 
@@ -68,11 +70,11 @@ You can use VS Code to debug UI-less custom functions in Excel on the Microsoft 
 
 ### Start the VS Code debugger
 
-4. Choose **View > Debug** or enter **Ctrl+Shift+D** to switch to debug view.
-5. From the Debug options, choose **Office Online (Microsoft Edge)**.
+4. Choose **View > Run** or enter **Ctrl+Shift+D** to switch to debug view.
+5. From the Debug options, choose **Office Online (Edge Chromium)**.
 6. Open Excel in the Microsoft Edge browser and create a new workbook.
 7. Choose **Share** in the ribbon and copy the link for the URL for this new workbook.
-8. Select **F5** (or choose **Debug > Start Debugging** from the menu) to begin debugging. A prompt will appear, which asks for the URL of your document.
+8. Select **F5** (or select **Run > Start Debugging** from the menu) to begin debugging. A prompt will appear, which asks for the URL of your document.
 9. Paste in the URL for your workbook and press Enter.
 
 ### Sideload your add-in
@@ -80,7 +82,7 @@ You can use VS Code to debug UI-less custom functions in Excel on the Microsoft 
 1. Select the **Insert** tab on the ribbon and in the **Add-ins** section, choose **Office Add-ins**.
 2. On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
     
-    ![The Office Add-ins dialog with a drop-down in the upper right reading "Manage my add-ins" and a drop-down below it with the option "Upload My Add-in"](../images/office-add-ins-my-account.png)
+    ![The Office Add-ins dialog with a drop-down in the upper right reading "Manage my add-ins" and a drop-down below it with the option "Upload My Add-in".](../images/office-add-ins-my-account.png)
 
 3. **Browse** to the add-in manifest file and then select **Upload**.
     
@@ -109,7 +111,7 @@ You can use the browser developer tools to debug UI-less custom functions in Exc
 3. Open the **Insert** tab on the ribbon and, in the **Add-ins** section, choose **Office Add-ins**.
 4. On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
     
-    ![The Office Add-ins dialog with a drop-down in the upper right reading "Manage my add-ins" and a drop-down below it with the option "Upload My Add-in"](../images/office-add-ins-my-account.png)
+    ![The Office Add-ins dialog with a drop-down in the upper right reading "Manage my add-ins" and a drop-down below it with the option "Upload My Add-in".](../images/office-add-ins-my-account.png)
 
 5. **Browse** to the add-in manifest file, and then select **Upload**.
     
@@ -133,16 +135,16 @@ If you are not using VS Code, you can use the command line (such as bash, or Pow
 1. From the command line run `npm run watch` to watch for and rebuild when code changes occur.
 2. Open a second command line window (the first one will be blocked while running the watch.)
 
-3. If you want to start your add-in in the desktop version of Excel, run the following command
-    
+3. If you want to start your add-in in the desktop version of Excel, run the following command.
+
     `npm run start:desktop`
-    
-    Or if you prefer to start your add-in in Excel on the web run the following command
-    
+
+    Or if you prefer to start your add-in in Excel on the web, run the following command.
+
     `npm run start:web`
-    
+
     For Excel on the web you also need to sideload your add-in. Follow the steps in [Sideload your add-in](#sideload-your-add-in) to sideload your add-in. Then continue to the next section to start debugging.
-    
+
 4. Open developer tools in the browser. For Chrome and most browsers F12 will open the developer tools.
 5. In developer tools, open your source code script file (**functions.js** or **functions.ts**). Your custom functions code may be located near the end of the file.
 6. In the custom function source code, apply a breakpoint by selecting a line of code.

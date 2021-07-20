@@ -19,7 +19,7 @@ To remove all sideloaded add-ins from Excel, Word, and PowerPoint, delete the co
 %LOCALAPPDATA%\Microsoft\Office\16.0\Wef\
 ```
 
-If the following folder exists, delete its contents too:
+If the following folder exists, delete its contents too.
 
 ```
 %userprofile%\AppData\Local\Packages\Microsoft.Win32WebViewHost_cw5n1h2txyewy\AC\#!123\INetCache\
@@ -47,11 +47,11 @@ Additionally, to clear the Office cache on Windows 10 when the add-in is running
 
 6. On the **Network** tab of the new window, select the **Clear cache** button.
 
-    ![Microsoft Edge DevTools screenshot with the Clear cache button highlighted](../images/edge-devtools-clear-cache.png)
+    ![Microsoft Edge DevTools screenshot with the Clear cache button highlighted.](../images/edge-devtools-clear-cache.png)
 
 7. If completing these steps doesn't produce the desired result, you can also select the **Always refresh from server** button.
 
-    ![Microsoft Edge DevTools screenshot with the Always refresh from server button highlighted](../images/edge-devtools-refresh-from-server.png)
+    ![Microsoft Edge DevTools screenshot with the Always refresh from server button highlighted.](../images/edge-devtools-refresh-from-server.png)
 
 ## Clear the Office cache on Mac
 

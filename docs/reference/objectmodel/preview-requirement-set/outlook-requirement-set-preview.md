@@ -1,11 +1,11 @@
 ---
-title: Outlook add-in API Preview requirement set
+title: Outlook add-in API preview requirement set
 description: 'Features and APIs that are currently in preview for Outlook add-ins.'
-ms.date: 02/05/2021
+ms.date: 06/15/2021
 localization_priority: Normal
 ---
 
-# Outlook add-in API Preview requirement set
+# Outlook add-in API preview requirement set
 
 The Outlook add-in API subset of the Office JavaScript API includes objects, methods, properties, and events that you can use in an Outlook add-in.
 
@@ -19,7 +19,7 @@ The Outlook add-in API subset of the Office JavaScript API includes objects, met
 >
 > For other features, you may be able to request access to preview bits for Outlook on the web using your Microsoft 365 account by completing and submitting [this form](https://aka.ms/OWAPreview). "Request preview access" is noted on those features.
 
-The Preview Requirement set includes all of the features of [Requirement set 1.9](../requirement-set-1.9/outlook-requirement-set-1.9.md).
+The preview requirement set includes all of the features of [requirement set 1.10](../requirement-set-1.10/outlook-requirement-set-1.10.md).
 
 ## Features in preview
 
@@ -77,25 +77,9 @@ Added a new enum `AppointmentSensitivityType` that represents the sensitivity op
 
 ### Event-based activation
 
-Added support for event-based activation functionality in Outlook add-ins. See [Configure your Outlook add-in for event-based activation](../../../outlook/autolaunch.md) to learn more.
+This feature was released in [requirement set 1.10](../requirement-set-1.10/outlook-requirement-set-1.10.md). However, additional events are now available in preview. To learn more, refer to [Supported events](../../../outlook/autolaunch.md#supported-events).
 
-#### [LaunchEvent extension point](../../manifest/extensionpoint.md#launchevent-preview)
-
-Added `LaunchEvent` extension point support to manifest. It configures event-based activation functionality.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
-
-#### [LaunchEvents manifest element](../../manifest/launchevents.md)
-
-Added `LaunchEvents` element to manifest. It supports configuring event-based activation functionality.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
-
-#### [Runtimes manifest element](../../manifest/runtimes.md)
-
-Added Outlook support to the `Runtimes` manifest element. It references the HTML and JavaScript files needed for event-based activation functionality.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
+**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
 
 <br>
 
@@ -108,78 +92,6 @@ Added Outlook support to the `Runtimes` manifest element. It references the HTML
 #### [Office.context.mailbox.item.getInitializationContextAsync](office.context.mailbox.item.md#methods)
 
 Added a new function that returns initialization data passed when the add-in is [activated by an actionable message](/outlook/actionable-messages/invoke-add-in-from-actionable-message).
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
-
-<br>
-
----
-
----
-
-### Mail signature
-
-#### [Office.context.mailbox.item.body.setSignatureAsync](/javascript/api/outlook/office.body?view=outlook-js-preview&preserve-view=true#setsignatureasync-data--options--callback-)
-
-Added a new function to the `Body` object that adds or replaces the signature in the item body in Compose mode.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
-
-#### [Office.context.mailbox.item.disableClientSignatureAsync](office.context.mailbox.item.md#methods)
-
-Added a new function that disables the client signature for the sending mailbox in Compose mode.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
-
-#### [Office.context.mailbox.item.getComposeTypeAsync](/javascript/api/outlook/office.messagecompose?view=outlook-js-preview&preserve-view=true#getcomposetypeasync-options--callback-)
-
-Added a new function that gets the compose type of a message in Compose mode.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
-
-#### [Office.context.mailbox.item.isClientSignatureEnabledAsync](office.context.mailbox.item.md#methods)
-
-Added a new function that checks if the client signature is enabled on the item in Compose mode.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
-
-#### [Office.MailboxEnums.ComposeType](/javascript/api/outlook/office.mailboxenums.composetype?view=outlook-js-preview&preserve-view=true)
-
-Added a new enum `ComposeType` available in Compose mode.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern, [Configure preview access](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center))
-
-<br>
-
----
-
----
-
-### Notification messages with actions
-
-This feature allows your add-in to include a notification message with a custom action besides the default **Dismiss** action. In modern Outlook on the web, this feature is available in Compose mode only.
-
-#### [Office.NotificationMessageDetails.actions](/javascript/api/outlook/office.notificationmessagedetails#actions)
-
-Added a new property that enables you to add an `InsightMessage` notification with a custom action.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
-
-#### [Office.NotificationMessageAction](/javascript/api/outlook/office.notificationmessageaction)
-
-Added a new object where you define a custom action for your `InsightMessage` notification.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
-
-#### [Office.MailboxEnums.ActionType](/javascript/api/outlook/office.mailboxenums.actiontype)
-
-Added a new enum `ActionType`.
-
-**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
-
-#### [Office.MailboxEnums.ItemNotificationMessageType.InsightMessage](/javascript/api/outlook/office.mailboxenums.itemnotificationmessagetype)
-
-Added a new type `InsightMessage` to the `ItemNotificationMessageType` enum.
 
 **Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
 
@@ -220,6 +132,18 @@ Added a new object that represents the session data of an item.
 #### [Office.context.mailbox.item.sessionData](office.context.mailbox.item.md#properties)
 
 Added a new property to manage the session data of an item in Compose mode.
+
+**Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
+
+<br>
+
+---
+
+---
+
+### Shared mailboxes
+
+Feature support for shared folders (that is, delegate access) was released in [requirement set 1.8](../requirement-set-1.8/outlook-requirement-set-1.8.md). However, support for shared mailboxes is now available in preview. To learn more, refer to [Enable shared folders and shared mailbox scenarios](../../../outlook/delegate-access.md).
 
 **Available in**: Outlook on Windows (connected to a Microsoft 365 subscription), Outlook on the web (modern)
 

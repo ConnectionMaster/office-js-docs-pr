@@ -16,7 +16,7 @@ This tutorial assumes you're familiar with using the Yo Office generator to crea
 
 ## Create the add-in project
 
-Use the Yeoman generator to create an Excel add-in project. Run the following command and then answer the prompts with the following answers:
+Use the Yeoman generator to create an Excel add-in project. Run the following command and then answer the prompts with the following answers.
 
 ```command line
 yo office
@@ -26,7 +26,7 @@ yo office
 - Choose a script type: **JavaScript**
 - What do you want to name your add-in? **My Office Add-in**
 
-![Screenshot showing the prompts and answers for the Yeoman generator in a command line interface](../images/yo-office-excel-project.png)
+![Screenshot showing the prompts and answers for the Yeoman generator in a command line interface.](../images/yo-office-excel-project.png)
 
 After you complete the wizard, the generator creates the project and installs supporting Node components.
 

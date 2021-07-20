@@ -1,24 +1,21 @@
 ---
 title: Runtimes in the manifest file 
 description: The Runtimes element specifies your add-in's runtime.
-ms.date: 02/01/2021
+ms.date: 05/14/2021
+
 localization_priority: Normal
 ---
+
 # Runtimes element
 
 Specifies the runtime of your add-in. Child of the [`<Host>`](host.md) element.
 
 > [!NOTE]
-> When running in Office on Windows, your add-in uses the Internet Explorer 11 browser.
-
-In Excel, this element enables the ribbon, task pane, and custom functions to use the same runtime. For more information, see [Configure your Excel add-in to use a shared JavaScript runtime](../../develop/configure-your-add-in-to-use-a-shared-runtime.md).
-
-In Outlook, this element enables event-based add-in activation. For more information, see [Configure your Outlook add-in for event-based activation](../../outlook/autolaunch.md).
+> When running in Office on Windows, an add-in that has a `<Runtimes>` element in its manifest does not necessarily run in the same webview control as it otherwise would. For more information about how the versions of Windows and Office determine what webview control is normally used, see [Browsers used by Office Add-ins](../../concepts/browsers-used-by-office-web-add-ins.md). If the conditions described there for using Microsoft Edge with WebView2 (Chromium-based) are met, then the add-in uses that browser whether or not it has a `<Runtimes>` element. However, when those conditions are not met, an add-in with a `<Runtimes>` element always uses Internet Explorer 11 regardless of the Windows or Microsoft 365 version.
 
 **Add-in type:** Task pane, Mail
 
-> [!IMPORTANT]
-> **Outlook**: The event-based activation feature is currently [in preview](../../reference/objectmodel/preview-requirement-set/outlook-requirement-set-preview.md) and only available in Outlook on the web and Windows. For more information, see [How to preview the event-based activation feature](../../outlook/autolaunch.md#how-to-preview-the-event-based-activation-feature).
+[!include[Runtimes support](../../includes/runtimes-note.md)]
 
 ## Syntax
 
@@ -36,8 +33,10 @@ In Outlook, this element enables event-based add-in activation. For more informa
 
 |  Element |  Required  |  Description  |
 |:-----|:-----|:-----|
-| [Runtime](runtime.md) | Yes |  The runtime for your add-in. |
+| [Runtime](runtime.md) | Yes |  The runtime for your add-in. **Important**: At present, you can only define one `<Runtime>` element. |
 
 ## See also
 
 - [Runtime](runtime.md)
+- [Configure your Office Add-in to use a shared JavaScript runtime](../../develop/configure-your-add-in-to-use-a-shared-runtime.md)
+- [Configure your Outlook add-in for event-based activation](../../outlook/autolaunch.md)

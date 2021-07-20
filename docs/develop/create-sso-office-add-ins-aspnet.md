@@ -1,7 +1,7 @@
 ---
 title: Create an ASP.NET Office Add-in that uses single sign-on
 description: 'A step-by-step guide for how to create (or convert) an Office Add-in with an ASP.NET backend to use single sign-on (SSO).'
-ms.date: 12/15/2020
+ms.date: 06/15/2021
 localization_priority: Normal
 ---
 
@@ -48,12 +48,12 @@ Clone or download the repo at [Office Add-in ASPNET SSO](https://github.com/offi
     * In the **Redirect URI** section, ensure that **Web** is selected in the drop down and then set the URI to` https://localhost:44355/AzureADAuth/Authorize`.
     * Choose **Register**.
 
-1. On the **Office-Add-in-ASPNET-SSO** page, copy and save the values for the **Application (client) ID** and the **Directory (tenant) ID**. You'll use both of them in later procedures.
+1. On the **Office-Add-in-ASPNET-SSO** page, copy and save the value for the **Application (client) ID**. You'll need it in later procedures.
 
     > [!NOTE]
     > This **Application (client) ID** is the "audience" value when other applications, such as the Office client application (e.g., PowerPoint, Word, Excel), seek authorized access to the application. It is also the "client ID" of the application when it, in turn, seeks authorized access to Microsoft Graph.
 
-1. Under **Manage**, select **Certificates & secrets**. Select the **New client secret** button. Enter a value for **Description**, then select an appropriate option for **Expires** and choose **Add**. *Copy the client secret value immediately and save it with the application ID* before proceeding as you'll need it in a later procedure.
+1. Under **Manage**, select **Certificates & secrets**. Select the **New client secret** button. Enter a value for **Description**, then select an appropriate option for **Expires** and choose **Add**. *Copy the client secret value (not the Secret ID) immediately and save it with the application ID* before proceeding as you'll need it in a later procedure.
 
 1. Under **Manage**, select **Expose an API**. Select the **Set** link to generate the Application ID URI in the form "api://$App ID GUID$", where $App ID GUID$ is the **Application (client) ID**. Insert `localhost:44355/` (note the forward slash "/" appended to the end) after the `//` and before the GUID. The entire ID should have the form `api://localhost:44355/$App ID GUID$`; for example `api://localhost:44355/c6c1f32b-5e55-4997-881a-753cc1d563b7`.
 
@@ -93,11 +93,9 @@ Clone or download the repo at [Office Add-in ASPNET SSO](https://github.com/offi
 
 1. Under **Manage**, select **API permissions** and then select **Add a permission**. On the panel that opens, choose **Microsoft Graph** and then choose **Delegated permissions**.
 
-1. Use the **Select permissions** search box to search for the permissions your add-in needs. Select the following. Only the first is really required by your add-in itself; but the `profile` permission is required for the Office application to get a token to your add-in web application. (Only Files.Read.All and profile are actually needed by the add-in. You must request the other two because the MSAL.NET library requires them.)
+1. Use the **Select permissions** search box to search for the permissions your add-in needs. Select the following. Only the first is really required by your add-in itself; but the `profile` permission is required for the Office application to get a token to your add-in web application.
 
     * Files.Read.All
-    * offline_access
-    * openid
     * profile
 
     > [!NOTE]
@@ -118,14 +116,14 @@ Clone or download the repo at [Office Add-in ASPNET SSO](https://github.com/offi
 
 1. Back in **Solution Explorer**, select (don't right-click) the **Office-Add-in-ASPNET-SSO-WebAPI** project. The **Properties** pane opens. Ensure that **SSL Enabled** is **True**. Verify that the **SSL URL** is `http://localhost:44355/`.
 
-1. In "Web.config", use the values that you copied in earlier. Set both the **ida:ClientID** and the **ida:Audience** to your **Application (client) ID**, and set **ida:Password** to your client secret.
+1. In "Web.config", use the values that you copied in earlier. Set both the **ida:ClientID** and the **ida:Audience** to your **Application (client) ID**, and set **ida:Password** to your client secret. Also, set **ida:Domain** to `http://localhost:44355` (no forward slash "/" at the end). 
 
     > [!NOTE]
     > The **Application (client) ID** is the "audience" value when other applications, such as the Office client application (e.g., PowerPoint, Word, Excel), seek authorized access to the application. It is also the "client ID" of the application when it, in turn, seeks authorized access to Microsoft Graph.
 
 1. If you didn't choose "Accounts in this organizational directory only" for **SUPPORTED ACCOUNT TYPES** when you registered the add-in, save and close the web.config. Otherwise, save but leave it open.
 
-1. Still in **Solution Explorer**, choose the **Office-Add-in-ASPNET-SSO** project and open the add-in manifest file “Office-Add-in-ASPNET-SSO.xml” and then scroll to the bottom of the file. Just above the end `</VersionOverrides>` tag, you'll find the following markup:
+1. Still in **Solution Explorer**, choose the **Office-Add-in-ASPNET-SSO** project and open the add-in manifest file “Office-Add-in-ASPNET-SSO.xml” and then scroll to the bottom of the file. Just above the end `</VersionOverrides>` tag, you'll find the following markup.
 
     ```xml
     <WebApplicationInfo>
@@ -133,8 +131,6 @@ Clone or download the repo at [Office Add-in ASPNET SSO](https://github.com/offi
       <Resource>api://localhost:44355/$application_GUID here$</Resource>
       <Scopes>
           <Scope>Files.Read.All</Scope>
-          <Scope>offline_access</Scope>
-          <Scope>openid</Scope>
           <Scope>profile</Scope>
       </Scopes>
     </WebApplicationInfo>
@@ -142,8 +138,8 @@ Clone or download the repo at [Office Add-in ASPNET SSO](https://github.com/offi
 
 1. Replace the placeholder “$application_GUID here$” *in both places* in the markup with the Application ID that you copied when you registered your add-in. The "$" signs are not part of the ID, so do not include them. This is the same ID you used in for the ClientID and Audience in the web.config.
 
-  > [!NOTE]
-  > The **Resource** value is the **Application ID URI** you set when you registered the add-in. The **Scopes** section is used only to generate a consent dialog box if the add-in is sold through AppSource.
+    > [!NOTE]
+    > The **Resource** value is the **Application ID URI** you set when you registered the add-in. The **Scopes** section is used only to generate a consent dialog box if the add-in is sold through AppSource.
 
 1. Save and close the file.
 
@@ -167,7 +163,7 @@ If you chose "Accounts in this organizational directory only" for **SUPPORTED AC
     * A `logErrors` method that will log to console errors that are not intended for the end user.
     * Code that implements the fallback authorization system that the add-in will use in scenarios where SSO is not supported or has errored.
 
-1. Below the assignment to `Office.initialize`, add the code below. Note the following about this code:
+1. Below the assignment to `Office.initialize`, add the code below. Note the following about this code.
 
     * The error-handling in the add-in will sometimes automatically attempt a second time to get an access token, using a different set of options. The counter variable `retryGetAccessToken` is used to ensure that the user isn't cycled repeatedly through failed attempts to get a token.
     * The `getGraphData` function is defined with the ES6 `async` keyword. Using ES6 syntax makes the SSO API in Office Add-ins much easier to to use. This is the only file in the solution that will use syntax that is not supported by Internet Explorer. We put 'ES6' in the filename as a reminder. The solution uses the tsc transpiler to transpile this file to ES5, so that the add-in can run when Office is using Internet Explorer for the UI. (See the tsconfig.json file in the root of the project.)
@@ -276,7 +272,7 @@ If you chose "Accounts in this organizational directory only" for **SUPPORTED AC
         // No one is signed into Office. If the add-in cannot be effectively used when no one
         // is logged into Office, then the first call of getAccessToken should pass the
         // `allowSignInPrompt: true` option.
-        showResult(["No one is signed into Office. But you can use many of the add-ins functions anyway. If you want to log in, press the Get OneDrive File Names button again."]);
+        showResult(["No one is signed into Office. But you can use many of the add-ins functions anyway. If you want to sign in, press the Get OneDrive File Names button again."]);
         break;
     case 13002:
         // The user aborted the consent prompt. If the add-in cannot be effectively used when consent
@@ -477,7 +473,7 @@ If you chose "Accounts in this organizational directory only" for **SUPPORTED AC
 
 1. Just above the line that declares the `ValuesController`, add the `[Authorize]` attribute. This ensures that your add-in will run the authorization process that you configured in the last procedure whenever a controller method is called. Only callers with a valid access token to your add-in can invoke the methods of the controller.
 
-1. Add the following method to the `ValuesController`. Note that the return value is `Task<HttpResponseMessage>` instead of `Task<IEnumerable<string>>` as would be more common for a `GET api/values` method. This is a side effect of that fact that the OAuth  authorization logic must be in the controller, instead of in an ASP.NET filter. Some error conditions in that logic require that an HTTP Response object be sent to the add-in's client.
+1. Add the following method to the `ValuesController`. Note that the return value is `Task<HttpResponseMessage>` instead of `Task<IEnumerable<string>>` as would be more common for a `GET api/values` method. This is a side effect of that fact that the OAuth authorization logic must be in the controller, instead of in an ASP.NET filter. Some error conditions in that logic require that an HTTP Response object be sent to the add-in's client.
 
     ```csharp
     // GET api/values
@@ -486,7 +482,7 @@ If you chose "Accounts in this organizational directory only" for **SUPPORTED AC
         // TODO 1: Validate the scopes of the bootstrap token.
 
         // TODO 2: Assemble all the information that is needed to get a
-        //        token for Microsoft Graph using the on-behalf-of flow.
+        //         token for Microsoft Graph using the on-behalf-of flow.
 
         // TODO 3: Get the access token for Microsoft Graph.
 
@@ -510,14 +506,14 @@ If you chose "Accounts in this organizational directory only" for **SUPPORTED AC
     * Your add-in is no longer playing the role of a resource (or audience) to which the Office application and user need access. Now it is itself a client that needs access to Microsoft Graph. `ConfidentialClientApplication` is the MSAL “client context” object.
     * Beginning with MSAL.NET 3.x.x, the `bootstrapContext` is just the bootstrap token itself.
     * The Authority comes from the web.config. It is either the string "common" or, for a single-tenant add-in, a GUID.
-    * MSAL requires the `openid` and `offline_access` scopes to function, but it throws an error if your code redundantly requests them. It will also throw an error if your code requests `profile`, which is really only used when the Office client application gets the token to your add-in's web application. So only `Files.Read.All` is explicitly requested.
+    * MSAL will throw an error if your code requests `profile`, which is really only used when the Office client application gets the token to your add-in's web application. So only `Files.Read.All` is explicitly requested.
 
     ```csharp
     string bootstrapContext = ClaimsPrincipal.Current.Identities.First().BootstrapContext.ToString();
     UserAssertion userAssertion = new UserAssertion(bootstrapContext);
 
     var cca = ConfidentialClientApplicationBuilder.Create(ConfigurationManager.AppSettings["ida:ClientID"])
-                                                    .WithRedirectUri("https://localhost:44355")
+                                                    .WithRedirectUri(ConfigurationManager.AppSettings["ida:Domain"])
                                                     .WithClientSecret(ConfigurationManager.AppSettings["ida:Password"])
                                                     .WithAuthority(ConfigurationManager.AppSettings["ida:Authority"])
                                                     .Build();
@@ -577,7 +573,7 @@ If you chose "Accounts in this organizational directory only" for **SUPPORTED AC
     }
     ```
 
-1. Replace `TODO 3c` with the following code to handle all other **MsalServiceException**s. As noted earlier,
+1. Replace `TODO 3c` with the following code to handle all other **MsalServiceException**s.
 
     ```csharp
     else
@@ -601,8 +597,32 @@ If you chose "Accounts in this organizational directory only" for **SUPPORTED AC
 1. In **Solution Explorer**, select the **Office-Add-in-ASPNET-SSO** project node (not the top solution node and not the project whose name ends in "WebAPI").
 1. In the **Properties** pane, open the **Start Document** drop down and choose one of the three options (Excel, Word, or PowerPoint).
 
-    ![Choose the desired Office client application: Excel, PowerPoint, or Word](../images/SelectHost.JPG)
+    ![Choose the desired Office client application: Excel, PowerPoint, or Word.](../images/SelectHost.JPG)
 
 1. Press F5.
 1. In the Office application, on the **Home** ribbon, select the **Show Add-in** in the **SSO ASP.NET** group to open the task pane add-in.
-1. Click the **Get OneDrive File Names** button. If you are logged into Office with either a Microsoft 365 Education or work account, or a Microsoft account, and SSO is working as expected, the first 10 file and folder names in your OneDrive for Business are displayed on the task pane. If you are not logged in, or you are in a scenario that does not support SSO, or SSO is not working for any reason, you will be prompted to log in. After you log in, the file and folder names appear.
+1. Click the **Get OneDrive File Names** button. If you are logged into Office with either a Microsoft 365 Education or work account, or a Microsoft account, and SSO is working as expected, the first 10 file and folder names in your OneDrive for Business are displayed on the task pane. If you are not logged in, or you are in a scenario that does not support SSO, or SSO is not working for any reason, you will be prompted to sign in. After you sign in, the file and folder names appear.
+
+### Testing the fallback path
+
+To test the fallback authorization path, force the SSO path to fail with the following steps.
+
+1. Add the following code to the very top of the `getDataWithToken` method in the HomeES6.js file.
+
+    ```javascript
+    function MockSSOError(code) {
+        this.code = code;
+    }
+    ```
+
+1. Then add the following line to the top of the `try` block in that same method, just above the call to `getAccessToken`.
+
+    ```javascript
+    throw new MockSSOError("13003");
+    ```
+
+## Updating the add-in when you go to staging and production
+
+Like all Office Web Add-ins, when you are ready to move to a staging or production server, you must update the `localhost:44355` domain in the manifest with the new domain. Similarly, you must update the domain in the web.config file.
+
+Since the domain appears in the AAD registration, you need to update that registration to use the new domain in place of `localhost:44355` wherever it appears.

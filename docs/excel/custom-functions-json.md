@@ -21,7 +21,7 @@ However, you can make a custom functions project from scratch. This process requ
 
 The following image explains the differences between using `yo office` scaffold files and writing JSON from scratch.
 
-![Image of differences between using Yo Office and writing your own JSON](../images/custom-functions-json.png)
+![Image of differences between using Yo Office and writing your own JSON.](../images/custom-functions-json.png)
 
 > [!NOTE]
 > Remember to connect your manifest to the JSON file you create, through the `<Resources>` section in your XML manifest file if you do not use the `yo office` generator.
@@ -243,7 +243,7 @@ The following sample shows the JSON metadata that corresponds to the functions d
 
 ```json
 {
-  "$schema": "https://developer.microsoft.com/en-us/json-schemas/office-js/custom-functions.schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/office-js/custom-functions.schema.json",
   "functions": [
     {
       "id": "ADD",

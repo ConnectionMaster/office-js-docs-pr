@@ -1,38 +1,55 @@
 ---
-title: Configure your Outlook add-in for event-based activation (preview)
+title: Configure your Outlook add-in for event-based activation
 description: Learn how to configure your Outlook add-in for event-based activation.
 ms.topic: article
-ms.date: 02/03/2021
+ms.date: 07/08/2021
 localization_priority: Normal
 ---
 
-# Configure your Outlook add-in for event-based activation (preview)
+# Configure your Outlook add-in for event-based activation
 
-Without the event-based activation feature, a user has to explicitly launch an add-in to complete their tasks. This feature enables your add-in to run tasks based on certain events, particularly for operations that apply to every item. You can also integrate with the task pane and UI-less functionality. At present, the following events are supported.
+Without the event-based activation feature, a user has to explicitly launch an add-in to complete their tasks. This feature enables your add-in to run tasks based on certain events, particularly for operations that apply to every item. You can also integrate with the task pane and UI-less functionality.
 
-- `OnNewMessageCompose`: On composing a new message (includes reply, reply all, and forward)
-- `OnNewAppointmentOrganizer`: On creating a new appointment
+By the end of this walkthrough, you'll have an add-in that runs whenever a new item is created and sets the subject.
 
-  > [!IMPORTANT]
-  > This feature does **not** activate on editing an item, for example, a draft or an existing appointment.
+> [!NOTE]
+> Support for this feature was introduced in [requirement set 1.10](../reference/objectmodel/requirement-set-1.10/outlook-requirement-set-1.10.md). See [clients and platforms](../reference/requirement-sets/outlook-api-requirement-sets.md#requirement-sets-supported-by-exchange-servers-and-outlook-clients) that support this requirement set.
 
-By the end of this walkthrough, you'll have an add-in that runs whenever a new message is created.
+## Supported events
+
+At present, the following events are supported on the web and on Windows.
+
+|Event|Description|Minimum<br>requirement set|
+|---|---|---|
+|`OnNewMessageCompose`|On composing a new message (includes reply, reply all, and forward) but not on editing, for example, a draft.|1.10|
+|`OnNewAppointmentOrganizer`|On creating a new appointment but not on editing an existing one.|1.10|
+|`OnMessageAttachmentsChanged`|On adding or removing attachments while composing a message.|Preview|
+|`OnAppointmentAttachmentsChanged`|On adding or removing attachments while composing an appointment.|Preview|
+|`OnMessageRecipientsChanged`|On adding or removing recipients while composing a message.|Preview|
+|`OnAppointmentAttendeesChanged`|On adding or removing attendees while composing an appointment.|Preview|
+|`OnAppointmentTimeChanged`|On changing date/time while composing an appointment.|Preview|
+|`OnAppointmentRecurrenceChanged`|On adding, changing, or removing the recurrence details while composing an appointment. If the date/time is changed, the `OnAppointmentTimeChanged` event will also be fired.|Preview|
+|`OnInfoBarDismissClicked`|On dismissing a notification while composing a message or appointment item. Only the add-in that added the notification will be notified.|Preview|
 
 > [!IMPORTANT]
-> This feature is only supported for [preview](../reference/objectmodel/preview-requirement-set/outlook-requirement-set-preview.md) in Outlook on the web and Windows with a Microsoft 365 subscription. See [How to preview the event-based activation feature](#how-to-preview-the-event-based-activation-feature) in this article for more details.
->
-> Because preview features are subject to change without notice, they shouldn't be used in production add-ins.
+> Events still in preview are only available with a Microsoft 365 subscription in Outlook on the web and on Windows. For more details, see [How to preview](#how-to-preview) in this article. Preview events shouldn't be used in production add-ins.
 
-## How to preview the event-based activation feature
+### How to preview
 
-We invite you to try out the event-based activation feature! Let us know your scenarios and how we can improve by giving us feedback through GitHub (see the **Feedback** section at the end of this page).
+We invite you to try out the events now in preview! Let us know your scenarios and how we can improve by giving us feedback through GitHub (see the **Feedback** section at the end of this page).
 
-To preview this feature:
+To preview these events:
 
 - For Outlook on the web:
   - [Configure targeted release on your Microsoft 365 tenant](/microsoft-365/admin/manage/release-options-in-office-365?view=o365-worldwide&preserve-view=true#set-up-the-release-option-in-the-admin-center).
   - Reference the **beta** library on the CDN (https://appsforoffice.microsoft.com/lib/beta/hosted/office.js). The [type definition file](https://appsforoffice.microsoft.com/lib/beta/hosted/office.d.ts) for TypeScript compilation and IntelliSense is found at the CDN and [DefinitelyTyped](https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/office-js-preview/index.d.ts). You can install these types with `npm install --save-dev @types/office-js-preview`.
-- For Outlook on Windows: The minimum required build is 16.0.13729.20000. Join the [Office Insider program](https://insider.office.com) for access to Office beta builds.
+- For Outlook on Windows:
+  - The minimum required build is 16.0.14026.20000. Join the [Office Insider program](https://insider.office.com) for access to Office beta builds.
+  - Configure the registry. Outlook includes a local copy of the production and beta versions of Office.js instead of loading from the CDN. By default, the local production copy of the API is referenced. To switch to the local beta copy of the Outlook JavaScript APIs, you need to add this registry entry, otherwise beta APIs may not be found.
+    1. Create the registry key `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\WebExt\Developer`.
+    1. Add an entry named `EnableBetaAPIsInJavaScript` and set the value to `1`. The following image shows what the registry should look like.
+
+        ![Screenshot of the registry editor with an EnableBetaAPIsInJavaScript registry key value.](../images/outlook-beta-registry-key.png)
 
 ## Set up your environment
 
@@ -40,13 +57,13 @@ Complete the [Outlook quick start](../quickstarts/outlook-quickstart.md?tabs=yeo
 
 ## Configure the manifest
 
-To enable event-based activation of your add-in, you must configure the [Runtimes](../reference/manifest/runtimes.md) element and [LaunchEvent](../reference/manifest/extensionpoint.md#launchevent-preview) extension point in the `VersionOverridesV1_1` node of the manifest. For now, `DesktopFormFactor` is the only supported form factor.
+To enable event-based activation of your add-in, you must configure the [Runtimes](../reference/manifest/runtimes.md) element and [LaunchEvent](../reference/manifest/extensionpoint.md#launchevent) extension point in the `VersionOverridesV1_1` node of the manifest. For now, `DesktopFormFactor` is the only supported form factor.
 
 1. In your code editor, open the quick start project.
 
 1. Open the **manifest.xml** file located at the root of your project.
 
-1. Select the entire `<VersionOverrides>` node (including open and close tags) and replace it with the following XML.
+1. Select the entire `<VersionOverrides>` node (including open and close tags) and replace it with the following XML, then save your changes.
 
 ```XML
 <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -114,6 +131,13 @@ To enable event-based activation of your add-in, you must configure the [Runtime
             <LaunchEvents>
               <LaunchEvent Type="OnNewMessageCompose" FunctionName="onMessageComposeHandler"/>
               <LaunchEvent Type="OnNewAppointmentOrganizer" FunctionName="onAppointmentComposeHandler"/>
+              <LaunchEvent Type="OnMessageAttachmentsChanged" FunctionName="onMessageAttachmentsChangedHandler" />
+              <LaunchEvent Type="OnAppointmentAttachmentsChanged" FunctionName="onAppointmentAttachmentsChangedHandler" />
+              <LaunchEvent Type="OnMessageRecipientsChanged" FunctionName="onMessageRecipientsChangedHandler" />
+              <LaunchEvent Type="OnAppointmentAttendeesChanged" FunctionName="onAppointmentAttendeesChangedHandler" />
+              <LaunchEvent Type="OnAppointmentTimeChanged" FunctionName="onAppointmentTimeChangedHandler" />
+              <LaunchEvent Type="OnAppointmentRecurrenceChanged" FunctionName="onAppointmentRecurrenceChangedHandler" />
+              <LaunchEvent Type="OnInfoBarDismissClicked" FunctionName="onInfobarDismissClickedHandler" />
             </LaunchEvents>
             <!-- Identifies the runtime to be used (also referenced by the Runtime element). -->
             <SourceLocation resid="WebViewRuntime.Url"/>
@@ -188,65 +212,116 @@ In this scenario, you'll add handling for composing new items.
     }
     ```
 
-1. For the functions to work in **Outlook on the web** with this project generated by the Yeoman generator for Office Add-ins, add the following statements at the end of the file.
+1. Add the following JavaScript code at the end of the file.
 
     ```js
-    g.onMessageComposeHandler = onMessageComposeHandler;
-    g.onAppointmentComposeHandler = onAppointmentComposeHandler;
+    // 1st parameter: FunctionName of LaunchEvent in the manifest; 2nd parameter: Its implementation in this .js file.
+    Office.actions.associate("onMessageComposeHandler", onMessageComposeHandler);
+    Office.actions.associate("onAppointmentComposeHandler", onAppointmentComposeHandler);
     ```
 
-1. For the functions to work in **Outlook on Windows**, add the following JavaScript code at the end of the file.
+1. Save your changes.
 
-    ```js
-    if (Office.actions) {
-      // 1st parameter: FunctionName of LaunchEvent in the manifest; 2nd parameter: Its implementation in this .js file.
-      Office.actions.associate("onMessageComposeHandler", onMessageComposeHandler);
-      Office.actions.associate("onAppointmentComposeHandler", onAppointmentComposeHandler);
-    }
-    ```
-
-    **Note**: Checking for `Office.actions` ensures that Outlook on the web ignores these statements.
+> [!IMPORTANT]
+> Windows: At present, imports are not supported in the JavaScript file where you implement the handling for event-based activation.
 
 ## Try it out
 
-1. Run the following command in the root directory of your project. When you run this command, the local web server will start (if it's not already running).
+1. Run the following command in the root directory of your project. When you run this command, the local web server will start (if it's not already running) and your add-in will be sideloaded.
 
     ```command&nbsp;line
-    npm run dev-server
+    npm start
     ```
 
-1. Follow the instructions in [Sideload Outlook add-ins for testing](sideload-outlook-add-ins-for-testing.md) to sideload the add-in in Outlook.
+    > [!NOTE]
+    > If your add-in wasn't automatically sideloaded, then follow the instructions in [Sideload Outlook add-ins for testing](../outlook/sideload-outlook-add-ins-for-testing.md#sideload-manually) to manually sideload the add-in in Outlook.
 
 1. In Outlook on the web, create a new message.
 
-    ![Screenshot of a message window in Outlook on the web with the subject set on compose](../images/outlook-web-autolaunch-1.png)
+    ![Screenshot of a message window in Outlook on the web with the subject set on compose.](../images/outlook-web-autolaunch-1.png)
 
 1. In Outlook on Windows, create a new message.
 
-    ![Screenshot of a message window in Outlook on Windows with the subject set on compose](../images/outlook-win-autolaunch.png)
+    ![Screenshot of a message window in Outlook on Windows with the subject set on compose.](../images/outlook-win-autolaunch.png)
+
+    > [!NOTE]
+    > If you're running your add-in from localhost and see the error "We're sorry, we couldn't access *{your-add-in-name-here}*. Make sure you have a network connection. If the problem continues, please try again later.", you may need to enable a loopback exemption.
+    >
+    > 1. Close Outlook.
+    > 1. Open the **Task Manager** and ensure that the **msoadfsb.exe** process is not running.
+    > 1. Run the following command.
+    >
+    >    ```command&nbsp;line
+    >    call %SystemRoot%\System32\CheckNetIsolation.exe LoopbackExempt -a -n=1_http___localhost_300004ACA5EC-D79A-43EA-AB47-E50E47DD96FC
+    >    ```
+    >
+    > 1. Restart Outlook.
+
+## Debug
+
+As you make changes to launch-event handling in your add-in, you should be aware that:
+
+- If you updated the manifest, [remove the add-in](sideload-outlook-add-ins-for-testing.md#remove-a-sideloaded-add-in) then sideload it again.
+- If you made changes to files other than the manifest, close and reopen Outlook on Windows, or refresh the browser tab running Outlook on the web.
+
+While implementing your own functionality, you may need to debug your code. For guidance on how to debug event-based add-in activation, see [Debug your event-based Outlook add-in](debug-autolaunch.md).
+
+Runtime logging is also available for this feature on Windows. For more information, see [Debug your add-in with runtime logging](../testing/runtime-logging.md#runtime-logging-on-windows).
+
+## Deploy to users
+
+You can deploy event-based add-ins by uploading the manifest through the Microsoft 365 admin center. In the admin portal, expand the **Settings** section in the navigation pane then select **Integrated apps**. On the **Integrated apps** page, choose the **Upload custom apps** action.
+
+![Screenshot of the Integrated apps page on the Microsoft 365 admin center, including the Upload custom apps action.](../images/outlook-deploy-event-based-add-ins.png)
+
+AppSource and inclient stores: The ability to deploy event-based add-ins or update existing add-ins to include the event-based activation feature should be available soon.
+
+> [!IMPORTANT]
+> Event-based add-ins are restricted to admin-managed deployments only. For now, users can't get event-based add-ins from AppSource or inclient stores.
 
 ## Event-based activation behavior and limitations
 
-Add-ins that activate based on events are expected to be short-running, lightweight, and as non-invasive as possible. To signal that your add-in has completed processing the launch event, we recommend you have your add-in call the `event.completed` method. If that call is not made, the add-in will time out within approximately 300 seconds, the maximum length of time allowed for running event-based add-ins. The add-in also ends when the user closes the compose window.
+Add-in launch-event handlers are expected to be short-running, lightweight, and as noninvasive as possible. After activation, your add-in will time out within approximately 300 seconds, the maximum length of time allowed for running event-based add-ins. To signal that your add-in has completed processing a launch event, we recommend you have the associated handler call the `event.completed` method. (Note that code included after the `event.completed` statement is not guaranteed to run.) Each time an event that your add-in handles is triggered, the add-in is reactivated and runs the associated event handler, and the timeout window is reset. The add-in ends after it times out, or the user closes the compose window or sends the item.
 
-If the user has multiple add-ins that subscribed to the same event, the Outlook platform launches the add-ins in no particular order. Currently, only five event-based add-ins can be actively running. Any additional add-ins are pushed to a queue then run as previously active add-ins are completed or deactivated.
+If the user has multiple add-ins that subscribed to the same event, the Outlook platform launches the add-ins in no particular order. Currently, only five event-based add-ins can be actively running.
 
 The user can switch or navigate away from the current mail item where the add-in started running. The add-in that was launched will finish its operation in the background.
 
-Some Office.js APIs that change or alter the UI are not allowed from event-based add-ins. The following are the blocked APIs:
+Imports are not supported in the JavaScript file where you implement the handling for event-based activation in the Windows client.
 
+Some Office.js APIs that change or alter the UI are not allowed from event-based add-ins. The following are the blocked APIs.
+
+- Under `OfficeRuntime.auth`:
+  - `getAccessToken` (Windows only)
+- Under `Office.context.auth`:
+  - `getAccessToken`
+  - `getAccessTokenAsync`
 - Under `Office.context.mailbox`:
   - `displayAppointmentForm`
   - `displayMessageForm`
   - `displayNewAppointmentForm`
   - `displayNewMessageForm`
+- Under `Office.context.mailbox.item`:
+  - `close`
 - Under `Office.context.ui`:
   - `displayDialogAsync`
   - `messageParent`
-- Under `Office.context.auth`:
-  - `getAccessToken`
-  - `getAccessTokenAsync`
+
+### Requesting external data
+
+You can request external data by using an API like [Fetch](https://developer.mozilla.org/docs/Web/API/Fetch_API) or by using [XmlHttpRequest (XHR)](https://developer.mozilla.org/docs/Web/API/XMLHttpRequest), a standard web API that issues HTTP requests to interact with servers.
+
+Be aware that you must use additional security measures when making XmlHttpRequests, requiring [Same Origin Policy](https://developer.mozilla.org/docs/Web/Security/Same-origin_policy) and simple [CORS](https://www.w3.org/TR/cors/).
+
+A simple CORS implementation cannot use cookies and only supports simple methods (GET, HEAD, POST). Simple CORS accepts simple headers with field names `Accept`, `Accept-Language`, `Content-Language`. You can also use a `Content-Type` header in simple CORS, provided that the content type is `application/x-www-form-urlencoded`, `text/plain`, or `multipart/form-data`.
+
+Full CORS support is coming soon.
 
 ## See also
 
-[Outlook add-in manifests](manifests.md)
+- [Outlook add-in manifests](manifests.md)
+- [How to debug event-based add-ins](debug-autolaunch.md)
+- [AppSource listing options for your event-based Outlook add-in](autolaunch-store-options.md)
+- PnP samples:
+  - [Use Outlook event-based activation to set the signature](https://github.com/OfficeDev/PnP-OfficeAddins/tree/main/Samples/outlook-set-signature)
+  - [Use Outlook event-based activation to tag external recipients](https://github.com/OfficeDev/PnP-OfficeAddins/tree/main/Samples/outlook-tag-external)

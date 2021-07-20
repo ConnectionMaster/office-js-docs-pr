@@ -1,7 +1,7 @@
 ---
 title: On-send feature for Outlook add-ins
 description: Provides a way to handle an item or block users from certain actions, and allows an add-in to set certain properties on send.
-ms.date: 01/08/2021
+ms.date: 06/16/2021
 localization_priority: Normal
 ---
 
@@ -18,12 +18,12 @@ For information about limitations related to the on-send feature, see [Limitatio
 
 ## Supported clients and platforms
 
-The following table shows supported client-server combinations for the on-send feature. Excluded combinations are not supported.
+The following table shows supported client-server combinations for the on-send feature, including the minimum required Cumulative Update where applicable. Excluded combinations are not supported.
 
 | Client | Exchange Online | Exchange 2016 on-premises<br>(Cumulative Update 6 or later) | Exchange 2019 on-premises<br>(Cumulative Update 1 or later) |
 |---|:---:|:---:|:---:|
 |Windows:<br>version 1910 (build 12130.20272) or later|Yes|Yes|Yes|
-|Mac:<br>build 16.30 or later|Yes|No|No|
+|Mac:<br>build 16.47 or later|Yes|Yes|Yes|
 |Web browser:<br>modern Outlook UI|Yes|Not applicable|Not applicable|
 |Web browser:<br>classic Outlook UI|Not applicable|Yes|Yes|
 
@@ -50,7 +50,7 @@ The following screenshot shows an information bar that notifies the sender to ad
 
 <br/>
 
-![Screenshot showing an error message prompting the user to enter a missing subject line](../images/block-on-send-subject-cc-inforbar.png)
+![Screenshot showing an error message prompting the user to enter a missing subject line.](../images/block-on-send-subject-cc-inforbar.png)
 
 <br/>
 
@@ -60,7 +60,7 @@ The following screenshot shows an information bar that notifies the sender that 
 
 <br/>
 
-![Screenshot showing an error message telling the user that blocked words were found](../images/block-on-send-body.png)
+![Screenshot showing an error message telling the user that blocked words were found.](../images/block-on-send-body.png)
 
 ## Limitations
 
@@ -72,18 +72,13 @@ The on-send feature currently has the following limitations.
 - **Performance** &ndash; Multiple roundtrips to the web server that hosts the add-in can affect the performance of the add-in. Consider the effects on performance when you create add-ins that require multiple message- or meeting-based operations.
 - **Send Later** (Mac only) &ndash; If there are on-send add-ins, the **Send Later** feature will be unavailable.
 
+Also, it's not recommended that you call `item.close()` in the on-send event handler as closing the item should happen automatically after the event is completed.
+
 ### Mailbox type/mode limitations
 
-On-send functionality is only supported for user mailboxes in Outlook on the web, Windows, and Mac. The functionality is not currently supported for the following mailbox types and modes.
+On-send functionality is only supported for user mailboxes in Outlook on the web, Windows, and Mac. In addition to situations where add-ins don't activate as noted in the [Mailbox items available to add-ins](outlook-add-ins-overview.md#mailbox-items-available-to-add-ins) section of the Outlook add-ins overview page, the functionality is not currently supported for offline mode.
 
-- Shared mailboxes\*
-- Group mailboxes
-- Offline mode
-
-Outlook won't allow sending if the on-send feature is enabled for these mailbox scenarios. However, if a user responds to an email in a group mailbox, the on-send add-in won't run and the message will be sent.
-
-> [!IMPORTANT]
-> \* On-send functionality should work on shared mailboxes or folders if the add-in also [implements support for delegate access scenarios](delegate-access.md).
+Outlook won't allow sending if the on-send feature is enabled for unsupported mailbox scenarios. However, in cases where Outlook add-ins don't activate, the on-send add-in won't run and the message will be sent.
 
 ## Multiple on-send add-ins
 
@@ -286,7 +281,7 @@ Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSen
 
 Add-ins for Outlook on Windows that use the on-send feature should run for any users who have them installed. However, if users are required to run the add-in to meet compliance standards, then the group policy **Disable send when web extensions can't load** must be set to **Enabled** on each applicable machine.
 
-To set mailbox policies, administrators can download the [Administrative Templates tool](https://www.microsoft.com/download/details.aspx?id=49030) then access the latest administrative templates by running the Local Group Policy editor, **gpedit.msc**.
+To set mailbox policies, administrators can download the [Administrative Templates tool](https://www.microsoft.com/download/details.aspx?id=49030) then access the latest administrative templates by running the Local Group Policy Editor, **gpedit.msc**.
 
 #### What the policy does
 
@@ -299,10 +294,10 @@ For compliance reasons, administrators may need to ensure that users cannot send
 
 #### Manage the on-send policy
 
-By default, the on-send policy is disabled. Administrators can enable the on-send policy by ensuring the user's group policy setting **Disable send when web extensions can't load** is set to **Enabled**. To disable the policy for a user, the administrator should set it to **Disabled**. To manage this policy setting, you can do the following.
+By default, the on-send policy is disabled. Administrators can enable the on-send policy by ensuring the user's group policy setting **Disable send when web extensions can't load** is set to **Enabled**. To disable the policy for a user, the administrator should set it to **Disabled**. To manage this policy setting, you can do the following:
 
 1. Download the latest [Administrative Templates tool](https://www.microsoft.com/download/details.aspx?id=49030).
-1. Open the Local Group Policy editor (**gpedit.msc**).
+1. Open the Local Group Policy Editor (**gpedit.msc**).
 1. Navigate to **User Configuration > Administrative Templates  > Microsoft Outlook 2016 > Security > Trust Center**.
 1. Select the **Disable send when web extensions can't load** setting.
 1. Open the link to edit policy setting.
@@ -312,7 +307,7 @@ By default, the on-send policy is disabled. Administrators can enable the on-sen
 
 Add-ins for Outlook on Mac that use the on-send feature should run for any users who have them installed. However, if users are required to run the add-in to meet compliance standards, then the following mailbox setting must be applied on each user's machine. This setting or key is CFPreference-compatible, which means that it can be set by using enterprise management software for Mac, such as Jamf Pro.
 
-|||
+||Value|
 |:---|:---|
 |**Domain**|com.microsoft.outlook|
 |**Key**|OnSendAddinsWaitForLoad|
@@ -357,16 +352,7 @@ Add-ins will run during the send event, which will then either allow or block th
 
 #### Web browser (modern Outlook), Windows, Mac
 
-To enforce on-send, administrators should ensure the policy has been enabled on both mailboxes. To learn how to support delegate access in an add-in, see [Enable delegate access scenarios in an Outlook add-in](delegate-access.md).
-
-### Group 1 is a modern group mailbox and user mailbox 1 is a member of Group 1
-
-<br/>
-
-|Scenario|Mailbox 1 on-send policy|On-send add-ins enabled?|Mailbox 1 action|Result|Supported?|
-|:------------|:-------------------------|:-------------------|:---------|:----------|:-------------|
-|1|Enabled|Yes|Mailbox 1 composes new message or meeting to Group 1.|On-send add-ins run during send.|Yes|
-|2|Enabled|Yes|Mailbox 1 composes a new message or meeting to Group 1 within Group 1's group window in Outlook on the web.|On-send add-ins do not run during send.|Not currently supported. As a workaround, use scenario 1.|
+To enforce on-send, administrators should ensure the policy has been enabled on both mailboxes. To learn how to support delegate access in an add-in, see [Enable shared folders and shared mailbox scenarios](delegate-access.md).
 
 ### User mailbox with on-send add-in feature/policy enabled, add-ins that support on-send are installed and enabled and offline mode is enabled
 
@@ -528,7 +514,7 @@ function checkBodyOnlyOnSendCallBack(asyncResult) {
 }
 ```
 
-The following are the parameters for the `addAsync` method:
+The following are the parameters for the `addAsync` method.
 
 - `NoSend` &ndash; A string that is a developer-specified key to reference a notification message. You can use it to modify this message later. The key can't be longer than 32 characters.
 - `type` &ndash; One of the properties of the  JSON object parameter. Represents the type of a message; the types correspond to the values of the [Office.MailboxEnums.ItemNotificationMessageType](/javascript/api/outlook/office.mailboxenums.itemnotificationmessagetype) enumeration. Possible values are progress indicator, information message, or error message. In this example, `type` is an error message.  

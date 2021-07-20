@@ -17,7 +17,7 @@ The following diagram shows the flow of execution for a call to an "Async" metho
 
 *Figure 1. Asynchronous programming execution flow*
 
-![Diagram showing the command execution interaction over time with the user, the add-in page, and the web app server hosting the add-in](../images/office-addins-asynchronous-programming-flow.png)
+![Diagram showing the command execution interaction over time with the user, the add-in page, and the web app server hosting the add-in.](../images/office-addins-asynchronous-programming-flow.png)
 
 Support for this asynchronous design in both rich and web clients is part of the "write once-run cross-platform" design goals of the Office Add-ins development model. For example, you can create a content or task pane add-in with a single code base that will run in both Excel 2013 and Excel on the web.
 
@@ -342,7 +342,7 @@ In both optional parameter examples, the _callback_ parameter is specified as th
 
 The Common API (and Outlook API) methods do not return [Promises](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise). Therefore, you cannot use [await](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/await) to pause the execution until the asynchronous operation completes. If you need `await` behavior, you can wrap the method call in an explicitly created Promise. 
 
-The basic pattern is to create an asynchronous method that returns a Promise object immediately and *resolves* that Promise object when the inner method completes, or *rejects* the object if the method fails. The following is a simple example
+The basic pattern is to create an asynchronous method that returns a Promise object immediately and *resolves* that Promise object when the inner method completes, or *rejects* the object if the method fails. The following is a simple example.
 
 ```javascript
 function getDocumentFilePath() {

@@ -91,9 +91,9 @@ If you have a document that contains test data you want to use while debugging y
 Start the project by choosing **Debug** > **Start Debugging** from the menu bar. Visual Studio will automatically build the solution and start Office to host your add-in.
 
 > [!NOTE]
-> When you start an Outlook add-in project, you'll be prompted for login credentials. If you're asked to log in repeatedly or if you receive an error that you are unauthorized, then Basic Auth may be disabled for accounts on your Microsoft 365 tenant. In this case, try using a Microsoft account instead. You may also need to set the property "Use multi-factor auth" to True in the Outlook Web Add-in project properties dialog.
+> When you start an Outlook add-in project, you'll be prompted for login credentials. If you're asked to sign in repeatedly or if you receive an error that you are unauthorized, then Basic Auth may be disabled for accounts on your Microsoft 365 tenant. In this case, try using a Microsoft account instead. You may also need to set the property "Use multi-factor auth" to True in the Outlook Web Add-in project properties dialog.
 
-When Visual Studio builds the project it performs the following tasks:
+When Visual Studio builds the project it performs the following tasks.
 
 1. Creates a copy of the XML manifest file and adds it to  `_ProjectName_\bin\Debug\OfficeAppManifests` directory. The Office application that hosts your add-in consumes this copy when you start Visual Studio and debug the add-in.
 
@@ -124,7 +124,7 @@ If your add-in isn't visible within the document that's displayed in the Office 
 
 1. In Excel, PowerPoint, or Word, choose the **Insert** tab and then choose the down-arrow located to the right of **My Add-ins**.
 
-    ![Screenshot showing Insert ribbon in Excel on Windows with the My Add-ins arrow highlighted](../images/excel-cf-register-add-in-1b.png)
+    ![Screenshot showing Insert ribbon in Excel on Windows with the My Add-ins arrow highlighted.](../images/excel-cf-register-add-in-1b.png)
 
 2. In the list of available add-ins, find the **Developer Add-ins** section and select the your add-in to register it.
 

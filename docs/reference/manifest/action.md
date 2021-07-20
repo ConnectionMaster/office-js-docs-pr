@@ -1,7 +1,7 @@
 ---
 title: Action element in the manifest file
 description: This element specifies the action to perform when the user selects a button or menu control.
-ms.date: 07/07/2020
+ms.date: 06/08/2021
 localization_priority: Normal
 ---
 
@@ -21,10 +21,9 @@ Specifies the action to perform when the user selects a  [Button](control.md#but
 |:-----|:-----|
 |  [FunctionName](#functionname) |    Specifies the name of the function to execute. |
 |  [SourceLocation](#sourcelocation) |    Specifies the source file location for this action. |
-|  [TaskpaneId](#taskpaneid) | Specifies the ID of the task pane container.|
-|  [Title](#title) | Specifies the custom title for the task pane.|
+|  [TaskpaneId](#taskpaneid) | Specifies the ID of the task pane container. Not supported in Outlook add-ins.|
+|  [Title](#title) | Specifies the custom title for the task pane. Not supported in Outlook add-ins.|
 |  [SupportsPinning](#supportspinning) | Specifies that a task pane supports pinning, which keeps the task pane open when the user changes the selection.|
-  
 
 ## xsi:type
 
@@ -32,6 +31,9 @@ This attribute specifies the kind of action performed when the user selects the 
 
 - `ExecuteFunction`
 - `ShowTaskpane`
+
+> [!IMPORTANT]
+> Registering [Mailbox](../objectmodel/preview-requirement-set/office.context.mailbox.md#events) and [Item](../objectmodel/preview-requirement-set/office.context.mailbox.item.md#events) events is not available when **xsi:type** is `ExecuteFunction`.
 
 ## FunctionName
 
@@ -99,6 +101,9 @@ The following examples show two actions that use a different **TaskpaneId**. To 
 
 Optional element when  **xsi:type** is "ShowTaskpane". Specifies the custom title for the task pane for this action.
 
+> [!NOTE]
+> This child element is not supported in Outlook add-ins.
+
 The following example shows an action that uses the **Title** element. Note that you don't assign the **Title** to a string directly. Instead, you assign it a resource ID (resid), that is defined in the **Resources** section of the manifest and can be no more than 32 characters.
 
 ```xml
@@ -127,7 +132,8 @@ The following example shows an action that uses the **Title** element. Note that
 Optional element when **xsi:type** is "ShowTaskpane". The containing [VersionOverrides](versionoverrides.md) elements must have an `xsi:type` attribute value of `VersionOverridesV1_1`. Include this element with a value of `true` to support task pane pinning. The user will be able to "pin" the task pane, causing it to stay open when changing the selection. For more information, see [Implement a pinnable task pane in Outlook](../../outlook/pinnable-taskpane.md).
 
 > [!IMPORTANT]
-> Although the `SupportsPinning` element was introduced in [requirement set 1.5](../objectmodel/requirement-set-1.5/outlook-requirement-set-1.5.md), it's currently only supported for Microsoft 365 subscribers using the following.
+> Although the `SupportsPinning` element was introduced in [requirement set 1.5](../objectmodel/requirement-set-1.5/outlook-requirement-set-1.5.md), it's currently only supported for Microsoft 365 subscribers using the following:
+>
 > - Outlook 2016 or later on Windows (build 7628.1000 or later)
 > - Outlook 2016 or later on Mac (build 16.13.503 or later)
 > - Modern Outlook on the web

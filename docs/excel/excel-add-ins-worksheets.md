@@ -1,7 +1,7 @@
 ---
 title: Work with worksheets using the Excel JavaScript API
 description: 'Code samples that show how to perform common tasks with worksheets using the Excel JavaScript API.'
-ms.date: 03/24/2020
+ms.date: 07/02/2021
 localization_priority: Normal
 ---
 
@@ -313,6 +313,49 @@ function onWorksheetChanged(eventArgs) {
 }
 ```
 
+## Detect formula changes
+
+Your add-in can track changes to formulas in a worksheet. This is useful when a worksheet is connected to an external database. When the formula changes in the worksheet, the event in this scenario triggers corresponding updates in the external database.
+
+To detect changes to formulas, [register an event handler](excel-add-ins-events.md#register-an-event-handler) for the [onFormulaChanged](/javascript/api/excel/excel.worksheet#onFormulaChanged) event of a worksheet. Event handlers for the `onFormulaChanged` event receive a [WorksheetFormulaChangedEventArgs](/javascript/api/excel/excel.worksheetformulachangedeventargs) object when the event fires.
+
+> [!IMPORTANT]
+> The `onFormulaChanged` event detects when a formula itself changes, not the data value resulting from the formula's calculation.
+
+The following code sample shows how to register the `onFormulaChanged` event handler, use the `WorksheetFormulaChangedEventArgs` object to retrieve the [formulaDetails](/javascript/api/excel/excel.worksheetformulachangedeventargs#formulaDetails) array of the changed formula, and then print out details about the changed formula with the [FormulaChangedEventDetail](/javascript/api/excel/excel.formulachangedeventdetail) properties.
+
+> [!NOTE]
+> This code sample only works when a single formula is changed.
+
+```js
+Excel.run(function (context) {
+    // Retrieve the worksheet named "Sample".
+    var sheet = context.workbook.worksheets.getItem("Sample");
+
+    // Register the formula changed event handler for this worksheet.
+    sheet.onFormulaChanged.add(formulaChangeHandler);
+
+    return context.sync();
+});
+
+function formulaChangeHandler(event) {
+    Excel.run(function (context) {
+        // Retrieve details about the formula change event.
+        // Note: This method assumes only a single formula is changed at a time. 
+        var cellAddress = event.formulaDetails[0].cellAddress;
+        var previousFormula = event.formulaDetails[0].previousFormula;
+        var source = event.source;
+    
+        // Print out the change event details.
+        console.log(
+          `The formula in cell ${cellAddress} changed. 
+          The previous formula was: ${previousFormula}. 
+          The source of the change was: ${source}.`
+        );         
+    });
+}
+```
+
 ## Handle sorting events
 
 The `onColumnSorted` and `onRowSorted` events indicate when any worksheet data is sorted. These events are connected to individual `Worksheet` objects and to the workbook's `WorkbookCollection`. They fire whether the sorting is done programmatically or manually through the Excel user interface.
@@ -324,13 +367,13 @@ The `onColumnSorted` and `onRowSorted` events provide their callbacks with [Work
 
 The following images show the ranges returned by the `address` property for sort events. First, here is the sample data before sorting:
 
-![Table data in Excel before being sorted](../images/excel-sort-event-before.png)
+![Table data in Excel before being sorted.](../images/excel-sort-event-before.png)
 
-If a top-to-bottom sort is performed on "**Q1**" (the values in "**B**"), the following highlighted rows are returned by `WorksheetRowSortedEventArgs.address`:
+If a top-to-bottom sort is performed on "**Q1**" (the values in "**B**"), the following highlighted rows are returned by `WorksheetRowSortedEventArgs.address`.
 
 ![Table data in Excel after a top-to-bottom sort. The rows that have moved are highlighted.](../images/excel-sort-event-after-row.png)
 
-If a left-to-right sort is performed on "**Quinces**" (the values in "**4**") on the original data, the following highlighted columns are returned by `WorksheetColumnsSortedEventArgs.address`:
+If a left-to-right sort is performed on "**Quinces**" (the values in "**4**") on the original data, the following highlighted columns are returned by `WorksheetColumnsSortedEventArgs.address`.
 
 ![Table data in Excel after a left-to-right sort. The columns that have moved are highlighted.](../images/excel-sort-event-after-column.png)
 
@@ -381,13 +424,13 @@ Excel.run(function (context) {
 
 > [!NOTE]
 > This section describes how to find cells and ranges using the `Worksheet` object's functions. More range retrieval information can be found in object-specific articles.
-> - For examples that show how to get a range within a worksheet using the `Range` object, see [Work with ranges using the Excel JavaScript API](excel-add-ins-ranges.md).
+> - For examples that show how to get a range within a worksheet using the `Range` object, see [Get a range using the Excel JavaScript API](excel-add-ins-ranges-get.md).
 > - For examples that show how to get ranges from a `Table` object, see [Work with tables using the Excel JavaScript API](excel-add-ins-tables.md).
 > - For examples that show how to search a large range for multiple sub-ranges based on cell characteristics, see [Work with multiple ranges simultaneously in Excel add-ins](excel-add-ins-multiple-ranges.md).
 
 ## Filter data
 
-An [AutoFilter](/javascript/api/excel/excel.autofilter) applies data filters across a range within the worksheet. This is created with `Worksheet.autoFilter.apply`, which has the following parameters:
+An [AutoFilter](/javascript/api/excel/excel.autofilter) applies data filters across a range within the worksheet. This is created with `Worksheet.autoFilter.apply`, which has the following parameters.
 
 - `range`: The range to which the filter is applied, specified as either a `Range` object or a string.
 - `columnIndex`: The zero-based column index against which the filter criteria is evaluated.

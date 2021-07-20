@@ -1,7 +1,7 @@
 ---
 title: Fresh style icon guidelines for Office Add-ins
-description: 'Get guidelines for using Fresh style icon icons in Office Add-ins.'
-ms.date: 12/09/2019
+description: 'Guidelines for using Fresh style icons in Office Add-ins.'
+ms.date: 05/12/2021
 localization_priority: Normal
 ---
 
@@ -20,7 +20,7 @@ Follow these guidelines when you create your icons:
 |Do|Don't|
 |:---|:---|
 |Keep visuals simple and clear, focusing on the key elements of the communication.| Don't use artifacts that make your icon look messy.|
-|Use the Office icon language to represent behaviors or concepts.|Don’t repurpose Office UI Fabric glyphs for add-in commands in the Office app ribbon or contextual menus. Fabric icons are stylistically different and will not match.|
+|Use the Office icon language to represent behaviors or concepts.|Don’t repurpose Fabric Core glyphs for add-in commands in the Office app ribbon or contextual menus. Fabric Core icons are stylistically different and will not match.|
 |Reuse common Office visual metaphors such as paintbrush for format or magnifying glass for find.|Don't reuse visual metaphors for different commands. Using the same icon for different behaviors and concepts can cause confusion. |
 |Redraw your icons to make them small or larger. Take the time to redraw cutouts, corners, and rounded edges to maximize line clarity. |Don't resize your icons by shrinking or enlarging in size. This can lead to poor visual quality and unclear actions. Complex icons created at a larger size may lose clarity if resized to be smaller without redraw. |
 |Use a white fill for accessibility. Most objects in your icons will require a white background to be legible across Office UI themes and in high-contrast modes.  |Avoid relying on your logo or brand to communicate what an add-in command does. Brand marks aren't always recognizable at smaller icon sizes and when modifiers are applied. Brand marks often conflict with Office app ribbon icon styles, and can compete for user attention in a saturated environment. |
@@ -29,7 +29,7 @@ Follow these guidelines when you create your icons:
 
 ## Icon size recommendations and requirements
 
-Office desktop icons are bitmap images. Different sizes will render depending on the user's DPI setting and touch mode. Include all eight supported sizes to create the best experience in all supported resolutions and contexts. The following are the supported sizes - three are required:
+Office desktop icons are bitmap images. Different sizes will render depending on the user's DPI setting and touch mode. Include all eight supported sizes to create the best experience in all supported resolutions and contexts. The following are the supported sizes - three are required.
 
 - 16 px (Required)
 - 20 px
@@ -40,36 +40,12 @@ Office desktop icons are bitmap images. Different sizes will render depending on
 - 64 px (Recommended, best for Mac)
 - 80 px (Required)
 
+> [!IMPORTANT]
+> For an image that is your add-in's representative icon, see [Create effective listings in AppSource and within Office](/office/dev/store/create-effective-office-store-listings#create-an-icon-for-your-add-in) for size and other requirements.
+
 Make sure to redraw your icons for each size rather than shrink them to fit.
 
 ![Illustration of the recommendation to redraw icons per size rather than shrink icons. For example, you may need to use fewer elements in a small icon rather than just scaling down a bigger image.](../images/icon-resizing.png)
-
-<!--
-The following table shows the icon sizes that render for different modes at different DPI settings.
-
-|DPI |**Small**||**Medium**||**Large**||**Extra large**|
-|:---|:---|:---|:---|:---|:---|:---|:---|
-|    |**Mouse**|**Touch**|**Mouse**|**Touch**|**Mouse**|**Touch**|-|
-|100%|16px|20px|24px||32px|40px|48px|
-|125%|20px|24px|||40px|48px|60px|
-|150%|24px|24px|36px||48px|48px|72px|
-|200%|32px|40px|48px||64px|80px|96px|
-|250%|40px||||80px||120px|
-|300%|48px||||96px||144px
-
-> [!NOTE]
-> At DPI settings of 150% or greater, the icon does not get swapped out for a larger size when Touch mode is engaged. At DPI settings greater than 250%, Touch mode is turned off by default.
-
-The following table lists the locations for certain icon sizes.
-
-|Location|100% DPI|200% DPI|250% DPI|
-|:-------|:-------|:-------|:-------|
-|Small ribbon button|16px|32px|40px|
-|Contextual menu|16px|32px|40px|
-|Quick access toolbar (QAT)|16px|32px|40px|
-|Large ribbon icon|32px|64px|80px|
-
--->
 
 ## Icon anatomy and layout
 
@@ -79,7 +55,7 @@ To create commands that align with the Office UI, follow layout guidelines for t
 
 The following image shows the layout of base elements and modifiers in an Office icon.
 
-![Diagram showing an icon base element in the center with a modifier on the lower right and an action modifier on the upper left](../images/icon-layouts.png)
+![Diagram showing an icon base element in the center with a modifier on the lower right and an action modifier on the upper left.](../images/icon-layouts.png)
 
 - Center base elements in the pixel frame with empty padding all around.
 - Place action modifiers on the top left.
@@ -108,9 +84,9 @@ All modifiers should have a 1 px transparent cutout between each element, includ
 ## Icon colors
 
 > [!NOTE]
-> These color guidelines are for ribbon icons used in [Add-in commands](add-in-commands.md). These icons are not rendered with Microsoft UI Fabric and the color palette is different from the palette described at [Microsoft UI Fabric | Colors | Shared](https://fluentfabric.azurewebsites.net/#/color/shared).
+> These color guidelines are for ribbon icons used in [Add-in commands](add-in-commands.md). These icons are not rendered with Fluent UI and the color palette is different from the palette described at [Microsoft UI Fabric | Colors | Shared](https://fluentfabric.azurewebsites.net/#/color/shared).
 
-Office icons have a limited color palette. Use the colors listed in the following table to guarantee seamless integration with the Office UI. Apply the following guidelines to the use of color:
+Office icons have a limited color palette. Use the colors listed in the following table to guarantee seamless integration with the Office UI. Apply the following guidelines to the use of color.
 
 - Use color to communicate meaning rather than for embellishment. It should highlight or emphasize an action, status, or an element that explicitly differentiates the mark.
 - If possible, use only one additional color beyond gray. Limit additional colors to two at the most.
@@ -118,33 +94,40 @@ Office icons have a limited color palette. Use the colors listed in the followin
 
 |Color name|RGB|Hex|Color|Category|
 |:---|:---|:---|:---|:---|
-|Text Gray (80)|80, 80, 80|#505050| ![Gray 80 color for text](../images/color-text-gray-80.png) |Text|
-|Text Gray (95)|95, 95, 95|#5F5F5F| ![Gray 95 color for text](../images/color-text-gray-95.png) |Text|
-|Text Gray (105)|105, 105, 105|#696969| ![Gray 105 color for text](../images/color-text-gray-105.png) |Text|
-|Dark Gray 32|128, 128, 128|#808080| ![Dark gray color for 32 px and larger](../images/color-dark-gray-32.png) |32 px and above|
-|Medium Gray 32|158, 158, 158|#9E9E9E| ![Medium gray color for 32 px and larger](../images/color-medium-gray-32.png) |32 px and above|
-|Light Gray ALL|179, 179, 179|#B3B3B3| ![Light gray color for all image sizes](../images/color-light-gray-all.png) |All sizes|
-|Dark Gray 16|114, 114, 114|#727272| ![Dark gray color for 16 px and smaller](../images/color-dark-gray-16.png) |16 px and below|
-|Medium Gray 16|144, 144, 144|#909090| ![Medium gray color for 16 px and smaller](../images/color-medium-gray-16.png) |16 and below|
-|Blue 32|77, 130, 184|#4d82B8| ![Blue color for 32 px and larger](../images/color-blue-32.png) |32 px and above|
-|Blue 16|74, 125, 177|#4A7DB1| ![Blue color for 16 px and smaller](../images/color-blue-16.png) |16 px and below|
-|Yellow ALL|234, 194, 130|#EAC282| ![Yellow color for all image sizes](../images/color-yellow-all.png) |All sizes|
-|Orange 32|231, 142, 70|#E78E46| ![Orange color for 32 px and larger](../images/color-orange-32.png) |32 px and above|
-|Orange 16|227, 142, 70|#E3751C| ![Orange color for 16 px and smaller](../images/color-orange-16.png) |16 px and below|
-|Pink ALL|230, 132, 151|#E68497| ![Pink color for all image sizes](../images/color-pink-all.png) |All sizes|
-|Green 32|118, 167, 151|#76A797| ![Green color for 32 px and larger](../images/color-green-32.png) |32 px and above|
-|Green 16|104, 164, 144|#68A490| ![Green color for 16 px and smaller](../images/color-green-16.png) |16 px and below|
-|Red 32|216, 99, 68|#D86344| ![Red color for 32 px and larger](../images/color-red-32.png) |32 px and above|
-|Red 16|214, 85, 50|#D65532| ![Red color for 16 px and smaller](../images/color-red-16.png) |16 px and below|
-|Purple 32|152, 104, 185|#9868B9| ![Purple color for 32 px and larger](../images/color-purple-32.png) |32 px and above|
-|Purple 16|137, 89, 171|#8959AB| ![Purple color for 16 px and smaller](../images/color-purple-16.png) |16 px and below|
+|Text Gray (80)|80, 80, 80|#505050| ![Gray 80 color for text.](../images/color-text-gray-80.png) |Text|
+|Text Gray (95)|95, 95, 95|#5F5F5F| ![Gray 95 color for text.](../images/color-text-gray-95.png) |Text|
+|Text Gray (105)|105, 105, 105|#696969| ![Gray 105 color for text.](../images/color-text-gray-105.png) |Text|
+|Dark Gray 32|128, 128, 128|#808080| ![Dark gray color for 32 px and larger.](../images/color-dark-gray-32.png) |32 px and above|
+|Medium Gray 32|158, 158, 158|#9E9E9E| ![Medium gray color for 32 px and larger.](../images/color-medium-gray-32.png) |32 px and above|
+|Light Gray ALL|179, 179, 179|#B3B3B3| ![Light gray color for all image sizes.](../images/color-light-gray-all.png) |All sizes|
+|Dark Gray 16|114, 114, 114|#727272| ![Dark gray color for 16 px and smaller.](../images/color-dark-gray-16.png) |16 px and below|
+|Medium Gray 16|144, 144, 144|#909090| ![Medium gray color for 16 px and smaller.](../images/color-medium-gray-16.png) |16 and below|
+|Blue 32|77, 130, 184|#4d82B8| ![Blue color for 32 px and larger.](../images/color-blue-32.png) |32 px and above|
+|Blue 16|74, 125, 177|#4A7DB1| ![Blue color for 16 px and smaller.](../images/color-blue-16.png) |16 px and below|
+|Yellow ALL|234, 194, 130|#EAC282| ![Yellow color for all image sizes.](../images/color-yellow-all.png) |All sizes|
+|Orange 32|231, 142, 70|#E78E46| ![Orange color for 32 px and larger.](../images/color-orange-32.png) |32 px and above|
+|Orange 16|227, 142, 70|#E3751C| ![Orange color for 16 px and smaller.](../images/color-orange-16.png) |16 px and below|
+|Pink ALL|230, 132, 151|#E68497| ![Pink color for all image sizes.](../images/color-pink-all.png) |All sizes|
+|Green 32|118, 167, 151|#76A797| ![Green color for 32 px and larger.](../images/color-green-32.png) |32 px and above|
+|Green 16|104, 164, 144|#68A490| ![Green color for 16 px and smaller.](../images/color-green-16.png) |16 px and below|
+|Red 32|216, 99, 68|#D86344| ![Red color for 32 px and larger.](../images/color-red-32.png) |32 px and above|
+|Red 16|214, 85, 50|#D65532| ![Red color for 16 px and smaller.](../images/color-red-16.png) |16 px and below|
+|Purple 32|152, 104, 185|#9868B9| ![Purple color for 32 px and larger.](../images/color-purple-32.png) |32 px and above|
+|Purple 16|137, 89, 171|#8959AB| ![Purple color for 16 px and smaller.](../images/color-purple-16.png) |16 px and below|
 
 ## Icons in high contrast modes
 
-Office icons are designed to render well in high contrast modes. Foreground elements are well differentiated from backgrounds to maximize legibility and enable recoloring. In high contrast modes, Office will recolor any pixel of your icon with a red, green, or blue value less than 190 to full black. All other pixels will be white. In other words, each RGB channel is assessed where 0-189 values are black and 190-255 values are white. Other high-contrast themes recolor using the same 190 value threshold but with different rules. For example, the high-contrast white theme will recolor all pixels greater than 190 opaque but all other pixels as transparent. Apply the following guidelines to maximize legibility in high-contrast settings:
+Office icons are designed to render well in high contrast modes. Foreground elements are well differentiated from backgrounds to maximize legibility and enable recoloring. In high contrast modes, Office will recolor any pixel of your icon with a red, green, or blue value less than 190 to full black. All other pixels will be white. In other words, each RGB channel is assessed where 0-189 values are black and 190-255 values are white. Other high-contrast themes recolor using the same 190 value threshold but with different rules. For example, the high-contrast white theme will recolor all pixels greater than 190 opaque but all other pixels as transparent. Apply the following guidelines to maximize legibility in high-contrast settings.
 
 - Aim to differentiate foreground and background elements along the 190 value threshold.
 - Follow Office icon visual styles.
 - Use colors from our icon palette.
 - Avoid the use of gradients.
 - Avoid large blocks of color with similar values.
+
+## See also
+
+- [Icon manifest element](../reference/manifest/icon.md)
+- [IconUrl manifest element](../reference/manifest/iconurl.md)
+- [HighResolutionIconUrl manifest element](../reference/manifest/highresolutioniconurl.md)
+- [Create an icon for your add-in](/office/dev/store/create-effective-office-store-listings#create-an-icon-for-your-add-in)

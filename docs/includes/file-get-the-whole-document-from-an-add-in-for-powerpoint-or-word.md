@@ -2,15 +2,15 @@ You can create an Office Add-in to provide one-click sending or publishing of a 
 
 ## Prerequisites for creating an add-in for PowerPoint or Word
 
-This article assumes that you are using a text editor to create the task pane add-in for PowerPoint or Word. To create the task pane add-in, you must create the following files:
+This article assumes that you are using a text editor to create the task pane add-in for PowerPoint or Word. To create the task pane add-in, you must create the following files.
 
-- On a shared network folder or on a web server, you need the following files:
+- On a shared network folder or on a web server, you need the following files.
 
-    - An HTML file (GetDoc_App.html) that contains the user interface plus links to the JavaScript files (including office.js and application-specific .js files) and Cascading Style Sheet (CSS) files.
+  - An HTML file (GetDoc_App.html) that contains the user interface plus links to the JavaScript files (including office.js and application-specific .js files) and Cascading Style Sheet (CSS) files.
 
-    - A JavaScript file (GetDoc_App.js) to contain the programming logic of the add-in.
+  - A JavaScript file (GetDoc_App.js) to contain the programming logic of the add-in.
 
-    - A CSS file (Program.css) to contain the styles and formatting for the add-in.
+  - A CSS file (Program.css) to contain the styles and formatting for the add-in.
 
 - An XML manifest file (GetDoc_App.xml) for the add-in, available on a shared network folder or add-in catalog. The manifest file must point to the location of the HTML file mentioned previously.
 
@@ -18,7 +18,7 @@ You can also create an add-in for PowerPoint by using [Visual Studio](../quickst
 
 ### Core concepts to know for creating a task pane add-in
 
-Before you begin creating this add-in for PowerPoint or Word, you should be familiar with building Office Add-ins and working with HTTP requests. This article does not discuss how to decode Base64-encoded text from an HTTP request on a web server. 
+Before you begin creating this add-in for PowerPoint or Word, you should be familiar with building Office Add-ins and working with HTTP requests. This article does not discuss how to decode Base64-encoded text from an HTTP request on a web server.
 
 ## Create the manifest for the add-in
 
@@ -89,7 +89,7 @@ Use the following procedure to create a simple user interface for the add-in tha
 2. Save the file as GetDoc_App.html using UTF-8 encoding to a network location or to a web server.
 
     > [!NOTE]
-    > Be sure that the **head** tags of the add-in contains a **script** tag with a valid link to the office.js file. 
+    > Be sure that the **head** tags of the add-in contains a **script** tag with a valid link to the office.js file.
 
     We'll use some CSS to give the add-in a simple, yet modern and professional appearance. Use the following CSS to define the style of the add-in.
 
@@ -144,14 +144,13 @@ Office.initialize = function (reason) {
 // Create a function for writing to the status div.
 function updateStatus(message) {
     var statusInfo = $('#status');
-    statusInfo.innerHTML += message + "<br/>";
+    statusInfo[0].innerHTML += message + "<br/>";
 }
 ```
 
-When you choose the **Submit** button in the UI, the add-in calls the `sendFile` function, which contains a call to the [Document.getFileAsync](/javascript/api/office/office.document#getfileasync-filetype--options--callback-) method. The `getFileAsync` method uses the asynchronous pattern, similar to other methods in the JavaScript API for Office. It has one required parameter, _fileType_, and two optional parameters,  _options_ and _callback_. 
+When you choose the **Submit** button in the UI, the add-in calls the `sendFile` function, which contains a call to the [Document.getFileAsync](/javascript/api/office/office.document#getfileasync-filetype--options--callback-) method. The `getFileAsync` method uses the asynchronous pattern, similar to other methods in the JavaScript API for Office. It has one required parameter, _fileType_, and two optional parameters,  _options_ and _callback_.
 
-
-The  _fileType_ parameter expects one of three constants from the [FileType](/javascript/api/office/office.filetype) enumeration: `Office.FileType.Compressed` ("compressed"), **Office.FileType.PDF** ("pdf"), or **Office.FileType.Text** ("text"). PowerPoint supports only **Compressed** as an argument; Word supports all three. When you pass in **Compressed** for the _fileType_ parameter, the `getFileAsync` method returns the document as a PowerPoint 2013 presentation file (*.pptx) or Word 2013 document file (*.docx) by creating a temporary copy of the file on the local computer.
+The  _fileType_ parameter expects one of three constants from the [FileType](/javascript/api/office/office.filetype) enumeration: `Office.FileType.Compressed` ("compressed"), **Office.FileType.PDF** ("pdf"), or **Office.FileType.Text** ("text"). The current file type support for each platform is listed under the [Document.getFileType](/javascript/api/office/office.document#getFileAsync_fileType__callback_) remarks. When you pass in **Compressed** for the _fileType_ parameter, the `getFileAsync` method returns the document as a PowerPoint 2013 presentation file (*.pptx) or Word 2013 document file (*.docx) by creating a temporary copy of the file on the local computer.
 
 The `getFileAsync` method returns a reference to the file as a [File](/javascript/api/office/office.file) object. The `File` object exposes four members: the [size](/javascript/api/office/office.file#size) property, [sliceCount](/javascript/api/office/office.file#slicecount) property, [getSliceAsync](/javascript/api/office/office.file#getsliceasync-sliceindex--callback-) method, and [closeAsync](/javascript/api/office/office.file#closeasync-callback-) method. The `size` property returns the number of bytes in the file. The `sliceCount` returns the number of [Slice](/javascript/api/office/office.slice) objects (discussed later in this article) in the file.
 

@@ -1,7 +1,7 @@
 ---
 title: Work with multiple ranges simultaneously in Excel add-ins
 description: 'Learn how the Excel JavaScript library enables your add-in to perform operations, and set properties, on multiple ranges simultaneously.'
-ms.date: 04/30/2019
+ms.date: 04/01/2021
 localization_priority: Normal
 ---
 
@@ -70,7 +70,7 @@ Be familiar with [Read properties of RangeAreas](#read-properties-of-rangeareas)
 
 ### RangeArea-specific properties and methods
 
-The `RangeAreas` type has some properties and methods that are not on the `Range` object. The following is a selection of them:
+The `RangeAreas` type has some properties and methods that are not on the `Range` object. The following is a selection of them.
 
 - `areas`: A `RangeCollection` object that contains all of the ranges represented by the `RangeAreas` object. The `RangeCollection` object is also new and is similar to other Excel collection objects. It has an `items` property which is an array of `Range` objects representing the ranges.
 - `areaCount`: The total number of ranges in the `RangeAreas`.
@@ -114,7 +114,7 @@ This example applies to scenarios in which you can hard code the range addresses
 
 ## Get special cells from multiple ranges
 
-The `getSpecialCells` and `getSpecialCellsOrNullObject` methods on the `RangeAreas` object work analogously to methods of the same name on the `Range` object. These methods return the cells with the specified characteristic from all of the ranges in the `RangeAreas.areas` collection. See the [Find special cells within a range](excel-add-ins-ranges-advanced.md#find-special-cells-within-a-range) section for more details on special cells.
+The `getSpecialCells` and `getSpecialCellsOrNullObject` methods on the `RangeAreas` object work analogously to methods of the same name on the `Range` object. These methods return the cells with the specified characteristic from all of the ranges in the `RangeAreas.areas` collection. For more details on special cells, see [Find special cells within a range](excel-add-ins-ranges-special-cells.md).
 
 When calling the `getSpecialCells` or `getSpecialCellsOrNullObject` method on a `RangeAreas` object:
 
@@ -123,7 +123,7 @@ When calling the `getSpecialCells` or `getSpecialCellsOrNullObject` method on a 
 
 ## Read properties of RangeAreas
 
-Reading property values of `RangeAreas` requires care, because a given property may have different values for different ranges within the `RangeAreas`. The general rule is that if a consistent value *can* be returned it will be returned. For example, in the following code, The RGB code for pink (`#FFC0CB`) and `true` will be logged to the console because both the ranges in the `RangeAreas` object have a pink fill and both are entire columns.
+Reading property values of `RangeAreas` requires care, because a given property may have different values for different ranges within the `RangeAreas`. The general rule is that if a consistent value *can* be returned it will be returned. For example, in the following code, the RGB code for pink (`#FFC0CB`) and `true` will be logged to the console because both the ranges in the `RangeAreas` object have a pink fill and both are entire columns.
 
 ```js
 Excel.run(function (context) {
@@ -175,5 +175,4 @@ Excel.run(function (context) {
 ## See also
 
 - [Fundamental programming concepts with the Excel JavaScript API](../reference/overview/excel-add-ins-reference-overview.md)
-- [Work with ranges using the Excel JavaScript API (fundamental)](excel-add-ins-ranges.md)
-- [Work with ranges using the Excel JavaScript API (advanced)](excel-add-ins-ranges-advanced.md)
+- [Read or write to a large range using the Excel JavaScript API](excel-add-ins-ranges-large.md)

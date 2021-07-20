@@ -1,7 +1,8 @@
 ---
 title: Work with workbooks using the Excel JavaScript API
-description: 'Code samples that show how to perform common tasks with workbooks or application-level features using the Excel JavaScript API.'
-ms.date: 08/24/2020
+description: 'Learn how to perform common tasks with workbooks or application-level features using the Excel JavaScript API.'
+ms.date: 06/07/2021
+ms.prod: excel
 localization_priority: Normal
 ---
 
@@ -49,59 +50,66 @@ The `createWorkbook` method can also create a copy of an existing workbook. The 
 You can get your add-in's current workbook as a base64-encoded string by using [file slicing](/javascript/api/office/office.document#getfileasync-filetype--options--callback-). The [FileReader](https://developer.mozilla.org/docs/Web/API/FileReader) class can be used to convert a file into the required base64-encoded string, as demonstrated in the following example.
 
 ```js
+// Retrieve the external workbook file and set up a `FileReader` object. 
 var myFile = document.getElementById("file");
 var reader = new FileReader();
 
 reader.onload = (function (event) {
     Excel.run(function (context) {
-        // strip off the metadata before the base64-encoded string
+        // Remove the metadata before the base64-encoded string.
         var startIndex = reader.result.toString().indexOf("base64,");
-        var workbookContents = reader.result.toString().substr(startIndex + 7);
+        var externalWorkbook = reader.result.toString().substr(startIndex + 7);
 
-        Excel.createWorkbook(workbookContents);
+        Excel.createWorkbook(externalWorkbook);
         return context.sync();
     }).catch(errorHandlerFunction);
 });
 
-// read in the file as a data URL so we can parse the base64-encoded string
+// Read the file as a data URL so we can parse the base64-encoded string.
 reader.readAsDataURL(myFile.files[0]);
 ```
 
-### Insert a copy of an existing workbook into the current one (preview)
+### Insert a copy of an existing workbook into the current one
 
-> [!NOTE]
-> The `WorksheetCollection.addFromBase64` method is currently only available in public preview and only for Office on Windows and Mac. [!INCLUDE [Information about using preview APIs](../includes/using-excel-preview-apis.md)]
-
-The previous example shows a new workbook being created from an existing workbook. You can also copy some or all of an existing workbook into the one currently associated with your add-in. A workbook's [WorksheetCollection](/javascript/api/excel/excel.worksheetcollection) has the `addFromBase64` method to insert copies of the target workbook's worksheets into itself. The other workbook's file is passed as base64-encoded string, just like the `Excel.createWorkbook` call.
+The previous example shows a new workbook being created from an existing workbook. You can also copy some or all of an existing workbook into the one currently associated with your add-in. A [Workbook](/javascript/api/excel/excel.workbook) has the `insertWorksheetsFromBase64` method to insert copies of the target workbook's worksheets into itself. The other workbook's file is passed as a base64-encoded string, just like the `Excel.createWorkbook` call. 
 
 ```TypeScript
-addFromBase64(base64File: string, sheetNamesToInsert?: string[], positionType?: Excel.WorksheetPositionType, relativeTo?: Worksheet | string): OfficeExtension.ClientResult<string[]>;
+insertWorksheetsFromBase64(base64File: string, options?: Excel.InsertWorksheetOptions): OfficeExtension.ClientResult<string[]>;
 ```
 
-The following example shows a workbook's worksheets being inserted in the current workbook, directly after the active worksheet. Note that `null` is passed for the `sheetNamesToInsert?: string[]` parameter. This means all the worksheets are being inserted.
+> [!IMPORTANT]
+> The `insertWorksheetsFromBase64` method is supported for Excel on Windows, Mac, and the web. It's not supported for iOS. Additionally, in Excel on the web this method doesn't support source worksheets with PivotTable, Chart, Comment, or Slicer elements. If those objects are present, the `insertWorksheetsFromBase64` method returns the `UnsupportedFeature` error in Excel on the web. 
+
+The following code sample shows how to insert worksheets from another workbook into the current workbook. This code sample first processes a workbook file with a [`FileReader`](https://developer.mozilla.org/docs/Web/API/FileReader) object and extracts a base64-encoded string, and then it inserts this base64-encoded string into the current workbook. The new worksheets are inserted after the worksheet named **Sheet1**. Note that `[]` is passed as the parameter for the [InsertWorksheetOptions.sheetNamesToInsert](/javascript/api/excel/excel.insertworksheetoptions#sheetNamesToInsert) property. This means that all the worksheets from the target workbook are inserted into the current workbook.
 
 ```js
+// Retrieve the external workbook file and set up a `FileReader` object. 
 var myFile = document.getElementById("file");
 var reader = new FileReader();
 
 reader.onload = (event) => {
     Excel.run((context) => {
-        // strip off the metadata before the base64-encoded string
+        // Remove the metadata before the base64-encoded string.
         var startIndex = reader.result.toString().indexOf("base64,");
-        var workbookContents = reader.result.toString().substr(startIndex + 7);
-
-        var sheets = context.workbook.worksheets;
-        sheets.addFromBase64(
-            workbookContents,
-            null, // get all the worksheets
-            Excel.WorksheetPositionType.after, // insert them after the worksheet specified by the next parameter
-            sheets.getActiveWorksheet() // insert them after the active worksheet
-        );
-        return context.sync();
+        var externalWorkbook = reader.result.toString().substr(startIndex + 7);
+            
+        // Retrieve the current workbook.
+        var workbook = context.workbook;
+            
+        // Set up the insert options. 
+        var options = { 
+            sheetNamesToInsert: [], // Insert all the worksheets from the source workbook.
+            positionType: Excel.WorksheetPositionType.after, // Insert after the `relativeTo` sheet.
+            relativeTo: "Sheet1" // The sheet relative to which the other worksheets will be inserted. Used with `positionType`.
+        }; 
+            
+         // Insert the new worksheets into the current workbook.
+         workbook.insertWorksheetsFromBase64(externalWorkbook, options);
+         return context.sync();
     });
 };
 
-// read in the file as a data URL so we can parse the base64-encoded string
+// Read the file as a data URL so we can parse the base64-encoded string.
 reader.readAsDataURL(myFile.files[0]);
 ```
 
@@ -301,7 +309,7 @@ Excel.run(async (context) => {
 
 ### Set calculation mode
 
-By default, Excel recalculates formula results whenever a referenced cell is changed. Your add-in's performance may benefit from adjusting this calculation behavior. The Application object has a `calculationMode` property of type `CalculationMode`. It can be set to the following values:
+By default, Excel recalculates formula results whenever a referenced cell is changed. Your add-in's performance may benefit from adjusting this calculation behavior. The Application object has a `calculationMode` property of type `CalculationMode`. It can be set to the following values.
 
 - `automatic`: The default recalculation behavior where Excel calculates new formula results every time the relevant data is changed.
 - `automaticExceptTables`: Same as `automatic`, except any changes made to values in tables are ignored.
@@ -309,7 +317,7 @@ By default, Excel recalculates formula results whenever a referenced cell is cha
 
 ### Set calculation type
 
-The [Application](/javascript/api/excel/excel.application) object provides a method to force an immediate recalculation. `Application.calculate(calculationType)` starts a manual recalculation based on the specified `calculationType`. The following values can be specified:
+The [Application](/javascript/api/excel/excel.application) object provides a method to force an immediate recalculation. `Application.calculate(calculationType)` starts a manual recalculation based on the specified `calculationType`. The following values can be specified.
 
 - `full`: Recalculate all formulas in all open workbooks, regardless of whether they have changed since the last recalculation.
 - `fullRebuild`: Check dependent formulas, and then recalculate all formulas in all open workbooks, regardless of whether they have changed since the last recalculation.
@@ -326,9 +334,45 @@ The Excel API also lets add-ins turn off calculations until `RequestContext.sync
 context.application.suspendApiCalculationUntilNextSync();
 ```
 
+## Detect workbook activation
+
+Your add-in can detect when a workbook is activated. A workbook becomes *inactive* when the user switches focus to another workbook, to another application, or (in Excel on the web) to another tab of the web browser. A workbook is *activated* when the user returns focus to the workbook. The workbook activation can trigger callback functions in your add-in, such as refreshing workbook data.
+
+To detect when a workbook is activated, [register an event handler](excel-add-ins-events.md#register-an-event-handler) for the [onActivated](/javascript/api/excel/excel.workbook#onActivated) event of a workbook. Event handlers for the `onActivated` event receive a [WorkbookActivatedEventArgs](/javascript/api/excel/excel.workbookactivatedeventargs) object when the event fires.
+
+> [!IMPORTANT]
+> The `onActivated` event doesn't detect when a workbook is opened. This event only detects when a user switches focus back to an already open workbook.
+
+The following code sample shows how to register the `onActivated` event handler and set up a callback function.
+
+```js
+Excel.run(function (context) {
+    // Retrieve the workbook.
+    var workbook = context.workbook;
+
+    // Register the workbook activated event handler.
+    workbook.onActivated.add(workbookActivated);
+
+    return context.sync();
+});
+
+function workbookActivated(event) {
+    Excel.run(function (context) {
+        // Retrieve the workbook and load the name.
+        var workbook = context.workbook;
+        workbook.load("name");
+        
+        return context.sync().then(function () {
+            // Callback function for when the workbook is activated.
+            console.log(`The workbook ${workbook.name} was activated.`);
+        });
+    });
+}
+```
+
 ## Save the workbook
 
-`Workbook.save` saves the workbook to persistent storage. The `save` method takes a single, optional `saveBehavior` parameter that can be one of the following values:
+`Workbook.save` saves the workbook to persistent storage. The `save` method takes a single, optional `saveBehavior` parameter that can be one of the following values.
 
 - `Excel.SaveBehavior.save` (default): The file is saved without prompting the user to specify file name and save location. If the file has not been saved previously, it's saved to the default location. If the file has been saved previously, it's saved to the same location.
 - `Excel.SaveBehavior.prompt`: If file has not been saved previously, the user will be prompted to specify file name and save location. If the file has been saved previously, it will be saved to the same location and the user will not be prompted.
@@ -342,7 +386,7 @@ context.workbook.save(Excel.SaveBehavior.prompt);
 
 ## Close the workbook
 
-`Workbook.close` closes the workbook, along with add-ins that are associated with the workbook (the Excel application remains open). The `close` method takes a single, optional `closeBehavior` parameter that can be one of the following values:
+`Workbook.close` closes the workbook, along with add-ins that are associated with the workbook (the Excel application remains open). The `close` method takes a single, optional `closeBehavior` parameter that can be one of the following values.
 
 - `Excel.CloseBehavior.save` (default): The file is saved before closing. If the file has not been saved previously, the user will be prompted to specify file name and save location.
 - `Excel.CloseBehavior.skipSave`: The file is immediately closed, without saving. Any unsaved changes will be lost.
@@ -355,4 +399,3 @@ context.workbook.close(Excel.CloseBehavior.save);
 
 - [Excel JavaScript object model in Office Add-ins](excel-add-ins-core-concepts.md)
 - [Work with worksheets using the Excel JavaScript API](excel-add-ins-worksheets.md)
-- [Work with ranges using the Excel JavaScript API](excel-add-ins-ranges.md)

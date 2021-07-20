@@ -58,6 +58,9 @@ items:
     - name: Install the latest Office version
       href: develop/install-latest-office-version.md
       displayName: Excel, Word, OneNote, Project, PowerPoint, Outlook
+    - name: Support Internet Explorer 11
+      href: develop/support-ie-11.md
+      displayName: Excel, Word, OneNote, Project, PowerPoint, Outlook
   - name: Develop
     items:
     - name: Overview
@@ -101,6 +104,8 @@ items:
       items:
       - name: Overview
         href: develop/add-in-manifests.md
+      - name: Extended overrides
+        href: develop/extended-overrides.md
       - name: Find the proper order of manifest elements
         href: develop/manifest-element-ordering.md
       - name: Update API and manifest version
@@ -140,10 +145,16 @@ items:
           href: develop/troubleshoot-sso-in-office-add-ins.md
       - name: Request permissions for API use in add-ins
         href: develop/requesting-permissions-for-api-use-in-content-and-task-pane-add-ins.md
+      - name: ITP and third-party cookies
+        href: develop/itp-and-third-party-cookies.md
     - name: UI and UX
       items:
       - name: Overview
         href: design/add-in-design.md
+      - name: Fluent UI React in Office Add-ins
+        href: design/using-office-ui-fabric-react.md
+      - name: Fabric Core in Office Add-ins
+        href: design/fabric-core.md
       - name: Guidelines
         items:
         - name: Accessibility
@@ -186,6 +197,8 @@ items:
             href: design/first-run-experience-patterns.md
           - name: Navigation
             href: design/navigation-patterns.md
+      - name: Design tool kits
+        href: design/design-toolkits.md
       - name: Interface elements
         items:
         - name: Overview
@@ -228,14 +241,6 @@ items:
         href: develop/show-hide-add-in.md  
       - name: Localization
         href: develop/localization.md
-      - name: Resources
-        items: 
-        - name: Design toolkits
-          href: design/design-toolkits.md
-        - name: Get started using Fabric React
-          href: design/using-office-ui-fabric-react.md
-        - name: Office UI Fabric
-          href: design/office-ui-fabric.md
     - name: Frameworks and IDEs
       items:
       - name: Develop add-ins with Angular
@@ -337,6 +342,8 @@ items:
         href: reference/requirement-sets/add-in-commands-requirement-sets.md
       - name: Dialog API requirement sets
         href: reference/requirement-sets/dialog-api-requirement-sets.md
+      - name: Dialog Origin requirement sets
+        href: reference/requirement-sets/dialog-origin-requirement-sets.md        
       - name: Identity API requirement sets
         href: reference/requirement-sets/identity-api-requirement-sets.md
       - name: Image Coercion requirement sets
@@ -581,6 +588,9 @@ items:
       - name: ExcelApi online-only requirement set
         href: reference/requirement-sets/excel-api-online-requirement-set.md
         displayName: Excel
+      - name: ExcelApi 1.13 requirement set
+        href: reference/requirement-sets/excel-api-1-13-requirement-set.md
+        displayName: Excel 
       - name: ExcelApi 1.12 requirement set
         href: reference/requirement-sets/excel-api-1-12-requirement-set.md
         displayName: Excel
@@ -629,6 +639,9 @@ items:
     - name: Calling built-in functions
       href: excel/excel-add-ins-worksheet-functions.md
       displayName: Excel
+    - name: Cells
+      href: excel/excel-add-ins-cells.md
+      displayName: Excel
     - name: Charts
       href: excel/excel-add-ins-charts.md
       displayName: Excel
@@ -638,14 +651,8 @@ items:
     - name: Comments
       href: excel/excel-add-ins-comments.md
       displayName: Excel
-    - name: Conditional formatting of ranges
-      href: excel/excel-add-ins-conditional-formatting.md
-      displayName: Excel
     - name: Data validation
       href: excel/excel-add-ins-data-validation.md
-      displayName: Excel
-    - name: Delay execution while cell is being edited
-      href: excel/excel-add-ins-delay-in-cell-edit.md
       displayName: Excel
     - name: Error handling
       href: excel/excel-add-ins-error-handling.md
@@ -653,21 +660,71 @@ items:
     - name: Events
       href: excel/excel-add-ins-events.md
       displayName: Excel
-    - name: Multiple ranges
-      href: excel/excel-add-ins-multiple-ranges.md
-      displayName: Excel
     - name: Performance optimization
       href: excel/performance.md
       displayName: Excel
     - name: PivotTables
       href: excel/excel-add-ins-pivottables.md
       displayName: Excel
-    - name: Ranges (fundamental)
-      href: excel/excel-add-ins-ranges.md
-      displayName: Excel
-    - name: Ranges (advanced)
-      href: excel/excel-add-ins-ranges-advanced.md
-      displayName: Excel
+    - name: Ranges and cells
+      items:
+      - name: Get a range 
+        href: excel/excel-add-ins-ranges-get.md
+        displayName: Excel
+      - name: Insert a range of cells
+        href: excel/excel-add-ins-ranges-insert.md
+        displayName: Excel
+      - name: Clear or delete a range of cells
+        href: excel/excel-add-ins-ranges-clear-delete.md
+        displayName: Excel
+      - name: Set or get the selected range 
+        href: excel/excel-add-ins-ranges-set-get.md
+        displayName: Excel
+      - name: Set or get values, text, or formulas
+        href: excel/excel-add-ins-ranges-set-get-values.md
+        displayName: Excel
+      - name: Set range format 
+        href: excel/excel-add-ins-ranges-set-format.md
+        displayName: Excel
+      - name: Conditional formatting of ranges
+        href: excel/excel-add-ins-conditional-formatting.md
+        displayName: Excel
+      - name: Read or write to an unbounded range
+        href: excel/excel-add-ins-ranges-unbounded.md
+        displayName: Excel
+      - name: Read or write to a large range
+        href: excel/excel-add-ins-ranges-large.md
+        displayName: Excel
+      - name: Find a cell using string matching
+        href: excel/excel-add-ins-ranges-string-match.md
+        displayName: Excel
+      - name: Work with dates using the Moment-MSDate plug-in
+        href: excel/excel-add-ins-ranges-dates.md
+        displayName: Excel
+      - name: Find special cells within a range
+        href: excel/excel-add-ins-ranges-special-cells.md
+        displayName: Excel
+      - name: Cut, copy, and paste
+        href: excel/excel-add-ins-ranges-cut-copy-paste.md
+        displayName: Excel
+      - name: Remove duplicates
+        href: excel/excel-add-ins-ranges-remove-duplicates.md
+        displayName: Excel
+      - name: Group data for an outline
+        href: excel/excel-add-ins-ranges-group.md
+        displayName: Excel
+      - name: Handle dynamic arrays and spilling
+        href: excel/excel-add-ins-ranges-dynamic-arrays.md
+        displayName: Excel
+      - name: Formula precedents and dependents
+        href: excel/excel-add-ins-ranges-precedents-dependents.md
+        displayName: Excel
+      - name: Delay execution while cell is being edited
+        href: excel/excel-add-ins-delay-in-cell-edit.md
+        displayName: Excel
+      - name: Work with multiple ranges
+        href: excel/excel-add-ins-multiple-ranges.md
+        displayName: Excel
     - name: Shapes
       href: excel/excel-add-ins-shapes.md
       displayName: Excel
@@ -714,7 +771,7 @@ items:
     - name: Autogenerate JSON metadata
       href: excel/custom-functions-json-autogeneration.md
       displayName: Excel, Custom Functions
-    - name: Call Excel JS APIs
+    - name: Call Excel JavaScript APIs
       href: excel/call-excel-apis-from-custom-function.md
       displayName: Excel, Custom Functions
     - name: Identify an equivalent XLL
@@ -802,7 +859,7 @@ items:
       - name: Overview
         href: reference/requirement-sets/outlook-api-requirement-sets.md
         displayName: Outlook
-      - name: Preview Requirement Set
+      - name: Mailbox preview requirement set
         items:
         - name: Overview
           href: reference/objectmodel/preview-requirement-set/outlook-requirement-set-preview.md
@@ -816,7 +873,21 @@ items:
           href: reference/objectmodel/preview-requirement-set/Office.context.mailbox.item.md
         - name: Outlook Preview API Reference
           href: reference/outlook-api-reference-preview.md
-      - name: Requirement Set 1.9
+      - name: Mailbox requirement set 1.10
+        items:
+        - name: Overview
+          href: reference/objectmodel/requirement-set-1.10/outlook-requirement-set-1.10.md
+        - name: Office
+          href: reference/objectmodel/requirement-set-1.10/office.md
+        - name: Office.context
+          href: reference/objectmodel/requirement-set-1.10/Office.context.md
+        - name: Office.context.mailbox
+          href: reference/objectmodel/requirement-set-1.10/Office.context.mailbox.md
+        - name: Office.context.mailbox.item
+          href: reference/objectmodel/requirement-set-1.10/Office.context.mailbox.item.md
+        - name: Outlook 1.10 API Reference
+          href: reference/outlook-api-reference-1-10.md
+      - name: Mailbox requirement set 1.9
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.9/outlook-requirement-set-1.9.md
@@ -830,7 +901,7 @@ items:
           href: reference/objectmodel/requirement-set-1.9/Office.context.mailbox.item.md
         - name: Outlook 1.9 API Reference
           href: reference/outlook-api-reference-1-9.md
-      - name: Requirement Set 1.8
+      - name: Mailbox requirement set 1.8
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.8/outlook-requirement-set-1.8.md
@@ -844,7 +915,7 @@ items:
           href: reference/objectmodel/requirement-set-1.8/Office.context.mailbox.item.md
         - name: Outlook 1.8 API Reference
           href: reference/outlook-api-reference-1-8.md
-      - name: Requirement Set 1.7
+      - name: Mailbox requirement set 1.7
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.7/outlook-requirement-set-1.7.md
@@ -858,7 +929,7 @@ items:
           href: reference/objectmodel/requirement-set-1.7/Office.context.mailbox.item.md
         - name: Outlook 1.7 API Reference
           href: reference/outlook-api-reference-1-7.md
-      - name: Requirement Set 1.6
+      - name: Mailbox requirement set 1.6
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.6/outlook-requirement-set-1.6.md
@@ -872,7 +943,7 @@ items:
           href: reference/objectmodel/requirement-set-1.6/Office.context.mailbox.item.md
         - name: Outlook 1.6 API Reference
           href: reference/outlook-api-reference-1-6.md
-      - name: Requirement Set 1.5
+      - name: Mailbox requirement set 1.5
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.5/outlook-requirement-set-1.5.md
@@ -886,7 +957,7 @@ items:
           href: reference/objectmodel/requirement-set-1.5/Office.context.mailbox.item.md
         - name: Outlook 1.5 API Reference
           href: reference/outlook-api-reference-1-5.md
-      - name: Requirement Set 1.4
+      - name: Mailbox requirement set 1.4
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.4/outlook-requirement-set-1.4.md
@@ -900,7 +971,7 @@ items:
           href: reference/objectmodel/requirement-set-1.4/Office.context.mailbox.item.md
         - name: Outlook 1.4 API Reference
           href: reference/outlook-api-reference-1-4.md
-      - name: Requirement Set 1.3
+      - name: Mailbox requirement set 1.3
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.3/outlook-requirement-set-1.3.md
@@ -914,7 +985,7 @@ items:
           href: reference/objectmodel/requirement-set-1.3/Office.context.mailbox.item.md
         - name: Outlook 1.3 API Reference
           href: reference/outlook-api-reference-1-3.md
-      - name: Requirement Set 1.2
+      - name: Mailbox requirement set 1.2
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.2/outlook-requirement-set-1.2.md
@@ -928,7 +999,7 @@ items:
           href: reference/objectmodel/requirement-set-1.2/Office.context.mailbox.item.md
         - name: Outlook 1.2 API Reference
           href: reference/outlook-api-reference-1-2.md
-      - name: Requirement Set 1.1
+      - name: Mailbox requirement set 1.1
         items:
         - name: Overview
           href: reference/objectmodel/requirement-set-1.1/outlook-requirement-set-1.1.md
@@ -943,7 +1014,7 @@ items:
         - name: Outlook 1.1 API Reference
           href: reference/outlook-api-reference-1-1.md
     - name: API reference - latest release
-      href: reference/outlook-api-reference-1-9.md
+      href: reference/outlook-api-reference-1-10.md
       displayName: Outlook
   - name: Concepts
     items: 
@@ -964,11 +1035,20 @@ items:
     - name: Append on send
       href: outlook/append-on-send.md
     - name: Event-based activation
-      href: outlook/autolaunch.md
+      items:
+      - name: Walkthrough
+        href: outlook/autolaunch.md
+        displayName: event-based activation
+      - name: Debug event-based activation
+        href: outlook/debug-autolaunch.md
+      - name: AppSource options
+        href: outlook/autolaunch-store-options.md
+        displayName: event-based activation
     - name: Pinnable task pane
       href: outlook/pinnable-taskpane.md
-    - name: Delegate access
+    - name: Shared folders and shared mailboxes
       href: outlook/delegate-access.md
+      displayName: delegate access
     - name: Manifests
       items:
       - name: Outlook add-in manifests
@@ -1061,6 +1141,8 @@ items:
         href: outlook/limits-for-activation-and-javascript-api-for-outlook-add-ins.md
       - name: Troubleshoot add-in activation
         href: outlook/troubleshoot-outlook-add-in-activation.md
+      - name: Debug event-based activation
+        href: outlook/debug-autolaunch.md
   
 - name: PowerPoint
   items:
@@ -1086,7 +1168,7 @@ items:
       - name: Overview
         href: reference/requirement-sets/powerpoint-api-requirement-sets.md
         displayName: PowerPoint
-      - name: PowerPointApi Preview requirement set
+      - name: PowerPointApi preview requirement set
         href: reference/requirement-sets/powerpoint-preview-apis.md
         displayName: PowerPoint
       - name: PowerPointApi 1.2 requirement set
@@ -1098,12 +1180,18 @@ items:
     - name: API reference
       href: reference/powerpoint-api-reference.md
       displayName: PowerPoint
-    - name: Insert and delete slides in a presentation
+    - name: Add and delete slides
+      href: powerpoint/add-slides.md
+      displayName: PowerPoint
+    - name: Insert slides
       href: powerpoint/insert-slides-into-presentation.md
       displayName: PowerPoint
     - name: Get the whole document from an add-in
       href: powerpoint/get-the-whole-document-from-an-add-in-for-powerpoint.md
       displayName: PowerPoint
+    - name: Use custom tags on presentations, slides, and shapes
+      href: powerpoint/tagging-presentations-slides-shapes.md
+      displayName: PowerPoint 
     - name: Use document themes in your PowerPoint add-ins
       href: powerpoint/use-document-themes-in-your-powerpoint-add-ins.md
       displayName: PowerPoint
@@ -1215,6 +1303,8 @@ items:
     href: develop/authentication-pnp.md
   - name: Handle high DPI and DPI scaling in your Office solution
     href: /office/client-developer/ddpi/handle-high-dpi-and-dpi-scaling-in-your-office-solution
+  - name: Office Add-ins community call
+    href: overview/office-add-ins-community-call.md
 
 - name: VSTO and COM transition resources
   items: 

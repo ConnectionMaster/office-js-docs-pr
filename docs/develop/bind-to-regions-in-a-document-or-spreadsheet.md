@@ -8,7 +8,7 @@ localization_priority: Normal
 
 # Bind to regions in a document or spreadsheet
 
-Binding-based data access enables content and task pane add-ins to consistently access a particular region of a document or spreadsheet through an identifier. The add-in first needs to establish the binding by calling one of the methods that associates a portion of the document with a unique identifier: [addFromPromptAsync], [addFromSelectionAsync], or [addFromNamedItemAsync]. After the binding is established, the add-in can use the provided identifier to access the data contained in the associated region of the document or spreadsheet. Creating bindings provides the following value to your add-in:
+Binding-based data access enables content and task pane add-ins to consistently access a particular region of a document or spreadsheet through an identifier. The add-in first needs to establish the binding by calling one of the methods that associates a portion of the document with a unique identifier: [addFromPromptAsync], [addFromSelectionAsync], or [addFromNamedItemAsync]. After the binding is established, the add-in can use the provided identifier to access the data contained in the associated region of the document or spreadsheet. Creating bindings provides the following value to your add-in.
 
 - Permits access to common data structures across supported Office applications, such as: tables, ranges, or text (a contiguous run of characters).
 - Enables read/write operations without requiring the user to make a selection.
@@ -96,7 +96,7 @@ Figure 1 shows the built-in range selection prompt in Excel.
 
 *Figure 1. Excel Select Data UI*
 
-![Screenshot showing the Select Data dialog](../images/agave-api-overview-excel-selection-ui.png)
+![Screenshot showing the Select Data dialog.](../images/agave-api-overview-excel-selection-ui.png)
 
 ## Add a binding to a named item
 

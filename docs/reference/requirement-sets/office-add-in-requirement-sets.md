@@ -1,7 +1,7 @@
 ---
 title: Office Common API requirement sets
 description: 'Learn more about the Office Common API requirement sets.'
-ms.date: 09/17/2020
+ms.date: 04/28/2021
 ms.prod: non-product-specific
 localization_priority: Normal
 ---
@@ -11,7 +11,7 @@ localization_priority: Normal
 Requirement sets are named groups of API members. Office Add-ins use requirement sets specified in the manifest or use a runtime check to determine whether an Office application supports APIs that an add-in needs. For more information, see [Office versions and requirement sets](../../develop/office-versions-and-requirement-sets.md).
 
 > [!TIP]
-> Looking for the *application-specific* API requirement sets? See the following API requirement sets:
+> Looking for the *application-specific* API requirement sets? See the following API requirement sets.
 >
 > - [Excel JavaScript API requirement sets](excel-api-requirement-sets.md) (ExcelApi)
 > - [Word JavaScript API requirement sets](word-api-requirement-sets.md) (WordApi)
@@ -72,6 +72,14 @@ See [Add-in command requirement sets](add-in-commands-requirement-sets.md).
 |**Office applications**|**Methods in set**|
 |:-----|:-----|
 | See [Dialog API requirement sets](dialog-api-requirement-sets.md). | UI.messageParent<br>UI.displayDialogAsync<br>UI.closeContainer<br>UI.Dialog |
+
+---
+
+### DialogOrigin
+
+|**Office applications**|**Methods in set**|
+|:-----|:-----|
+| See [Dialog Origin requirement sets](dialog-origin-requirement-sets.md). | Cross-domain support for:<br>UI.messageParent<br>UI.Dialog.messageChild |
 
 ---
 
@@ -167,7 +175,7 @@ See [Add-in command requirement sets](add-in-commands-requirement-sets.md).
 
 |**Office applications**|**Methods in set**|
 |:-----|:-----|
-| Excel on Windows<br>Excel on the web<br>Excel on Mac<br>PowerPoint on Windows<br>PowerPoint on the web<br>PowerPoint on iPad<br>PowerPoint on Mac<br>Word 2013 and later on Windows<br>Word 2016 and later on Mac<br>Word on the web<br>Word on iPad|Supports output to PDF format (Office.FileType.Pdf)<br>when using the Document.getFileAsync method.|
+| Excel on Windows<br>Excel on the web<br>Excel on Mac<br>PowerPoint on Windows<br>PowerPoint on the web<br>PowerPoint on iPad<br>PowerPoint on Mac<br>Word 2013 and later on Windows<br>Word 2016 and later on Mac<br>Word on the web|Supports output to PDF format (Office.FileType.Pdf)<br>when using the Document.getFileAsync method.|
 
 ---
 

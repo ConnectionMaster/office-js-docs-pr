@@ -66,10 +66,14 @@
         "source_path": "docs/reference/outlook-api-reference-1-8.md",	
         "redirect_url": "/javascript/api/outlook?view=outlook-js-1.8"	
       },	
-      {	
+      {
         "source_path": "docs/reference/outlook-api-reference-1-9.md",	
         "redirect_url": "/javascript/api/outlook?view=outlook-js-1.9"	
-      },	
+      },
+      {
+        "source_path": "docs/reference/outlook-api-reference-1-10.md",	
+        "redirect_url": "/javascript/api/outlook?view=outlook-js-1.10"	
+      },
       {	
         "source_path": "docs/reference/powerpoint-api-reference.md",	
         "redirect_url": "/javascript/api/powerpoint?view=powerpoint-js-1.1"	
@@ -327,8 +331,13 @@
         "redirect_document_id": false 
       },
       {
+         "source_path": "docs/design/office-ui-fabric.md",
+         "redirect_url": "/office/dev/add-ins/design/fabric-core",
+         "redirect_document_id": false
+      },
+      {
          "source_path": "docs/design/ui-elements/using-office-ui-fabric.md",
-         "redirect_url": "/office/dev/add-ins/design/office-ui-fabric",
+         "redirect_url": "/office/dev/add-ins/design/fabric-core",
          "redirect_document_id": true
       },
       {
@@ -428,7 +437,21 @@
         "redirect_url": "/office/dev/add-ins/tutorials/excel-tutorial"
       }
       ,
-
+      {
+        "source_path": "docs/excel/excel-add-ins-ranges-precedents.md",
+        "redirect_url": "/office/dev/add-ins/excel/excel-add-ins-ranges-precedents-dependents"
+      }
+      ,
+      {
+        "source_path": "docs/excel/excel-add-ins-ranges.md",
+        "redirect_url": "/office/dev/add-ins/excel/excel-add-ins-core-concepts#ranges"
+      }
+      ,
+      {
+        "source_path": "docs/excel/excel-add-ins-ranges-advanced.md",
+        "redirect_url": "/office/dev/add-ins/excel/excel-add-ins-core-concepts#ranges"
+      }
+      ,
       {
         "source_path": "docs/reference/objectmodel/preview-requirement-set/office.context.mailbox.diagnostics.md",
         "redirect_url": "/javascript/api/outlook/office.diagnostics?view=outlook-js-preview"

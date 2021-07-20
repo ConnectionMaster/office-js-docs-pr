@@ -1,7 +1,7 @@
 ---
 title: 'Tutorial: Build a message compose Outlook add-in'
 description: 'In this tutorial, you will build an Outlook add-in that inserts GitHub gists into the body of a new message.'
-ms.date: 11/20/2020
+ms.date: 05/12/2021
 ms.prod: outlook
 #Customer intent: As a developer, I want to create a message compose Outlook add-in.
 localization_priority: Priority
@@ -106,7 +106,7 @@ The add-in that you'll create in this tutorial will read [gists](https://gist.gi
 
     - **Which Office client application would you like to support?** - `Outlook`
 
-    ![Screenshot showing the prompts and answers for the Yeoman generator in a command line interface](../images/yeoman-prompts-2.png)
+    ![Screenshot showing the prompts and answers for the Yeoman generator in a command line interface.](../images/yeoman-prompts-2.png)
 
     After you complete the wizard, the generator will create the project and install supporting Node components.
 
@@ -157,17 +157,15 @@ Before going any further, let's test the basic add-in that the generator created
 > [!NOTE]
 > Office Add-ins should use HTTPS, not HTTP, even when you are developing. If you are prompted to install a certificate after you run the following command, accept the prompt to install the certificate that the Yeoman generator provides. You may also have to run your command prompt or terminal as an administrator for the changes to be made.
 
-1. Run the following command in the root directory of your project. When you run this command, the local web server will start (if it's not already running).
+1. Run the following command in the root directory of your project. When you run this command, the local web server will start (if it's not already running) and your add-in will be sideloaded.
 
     ```command&nbsp;line
-    npm run dev-server
+    npm start
     ```
-
-1. Follow the instructions in [Sideload Outlook add-ins for testing](../outlook/sideload-outlook-add-ins-for-testing.md) to sideload the **manifest.xml** file that's located in the root directory of the project.
 
 1. In Outlook, open an existing message and select the **Show Taskpane** button. If everything's been set up correctly, the task pane will open and render the add-in's welcome page.
 
-    ![Screenshot of the "Show Taskpane" button and Git the gist task pane added by the sample](../images/button-and-pane.png)
+    ![Screenshot of the "Show Taskpane" button and Git the gist task pane added by the sample.](../images/button-and-pane.png)
 
 ## Define buttons
 
@@ -287,11 +285,11 @@ After you've reinstalled the add-in, you can verify that it installed successful
 
 - If you're running this add-in in Outlook 2016 or later on Windows, you should see two new buttons in the ribbon of the compose message window: **Insert gist** and **Insert default gist**.
 
-    ![Screenshot of the ribbon overflow menu in Outlook on Windows with the add-in's buttons highlighted](../images/add-in-buttons-in-windows.png)
+    ![Screenshot of the ribbon overflow menu in Outlook on Windows with the add-in's buttons highlighted.](../images/add-in-buttons-in-windows.png)
 
 - If you're running this add-in in Outlook on the web, you should see a new button at the bottom of the compose message window. Select that button to see the options **Insert gist** and **Insert default gist**.
 
-    ![Screenshot of the message compose form in Outlook on the web with the add-in button and pop-up menu highlighted](../images/add-in-buttons-in-owa.png)
+    ![Screenshot of the message compose form in Outlook on the web with the add-in button and pop-up menu highlighted.](../images/add-in-buttons-in-owa.png)
 
 ## Implement a first-run experience
 
@@ -313,7 +311,7 @@ Let's start by creating the UI for the dialog itself. Within the **./src** folde
   <!-- Office JavaScript API -->
   <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
-  <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+<!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui. -->
   <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
 
   <!-- Template styles -->
@@ -632,10 +630,10 @@ Finally, open the file **webpack.config.js** file in the root directory of the p
     npm run build
     ```
 
-1. Run the following command to start the web server.
+1. Run the following command to start the web server and sideload your add-in.
 
     ```command&nbsp;line
-    npm run dev-server
+    npm start
     ```
 
 ### Fetch data from GitHub
@@ -936,17 +934,17 @@ function buildBodyContent(gist, callback) {
 
 ### Test the button
 
-Save all of your changes and run `npm run dev-server` from the command prompt, if the server isn't already running. Then complete the following steps to test the **Insert default gist** button.
+Save all of your changes and run `npm start` from the command prompt, if the server isn't already running. Then complete the following steps to test the **Insert default gist** button.
 
 1. Open Outlook and compose a new message.
 
 1. In the compose message window, select the **Insert default gist** button. You should see a dialog where you can configure the add-in, starting with the prompt to set your GitHub username.
 
-    ![Screenshot of the dialog prompt to configure the add-in](../images/addin-prompt-configure.png)
+    ![Screenshot of the dialog prompt to configure the add-in.](../images/addin-prompt-configure.png)
 
 1. In the settings dialog, enter your GitHub username and then either **Tab** or click elsewhere in the dialog to invoke the `change` event, which should load your list of public gists. Select a gist to be the default, and select **Done**.
 
-    ![Screenshot of the add-in's settings dialog](../images/addin-settings.png)
+    ![Screenshot of the add-in's settings dialog.](../images/addin-settings.png)
 
 1. Select the **Insert default gist** button again. This time, you should see the contents of the gist inserted into the body of the email.
 
@@ -974,7 +972,7 @@ In the project that you've created, the task pane HTML is specified in the file 
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
-    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+   <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui. -->
     <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
 
     <!-- Template styles -->
@@ -1297,7 +1295,7 @@ In the project that you've created, the task pane JavaScript is specified in the
 
 ### Test the button
 
-Save all of your changes and run `npm run dev-server` from the command prompt, if the server isn't already running. Then complete the following steps to test the **Insert gist** button.
+Save all of your changes and run `npm start` from the command prompt, if the server isn't already running. Then complete the following steps to test the **Insert gist** button.
 
 1. Open Outlook and compose a new message.
 
@@ -1305,7 +1303,7 @@ Save all of your changes and run `npm run dev-server` from the command prompt, i
 
 1. In the task pane, select the **Hello World Html** gist and select **Insert** to insert that gist into the body of the message.
 
-![Screenshot of the add-in task pane and the selected gist content displayed in the message body](../images/addin-taskpane.png)
+![Screenshot of the add-in task pane and the selected gist content displayed in the message body.](../images/addin-taskpane.png)
 
 ## Next steps
 

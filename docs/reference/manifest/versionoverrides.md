@@ -1,7 +1,7 @@
 ---
 title: VersionOverrides element in the manifest file
 description: 'Reference documentation of the VersionOverrides element for Office Add-ins manifest (XML) files.'
-ms.date: 03/05/2020
+ms.date: 05/12/2021
 localization_priority: Normal
 ---
 
@@ -40,7 +40,7 @@ The following lists the required value of the **xmlns** value depending on the *
 |  [EquivalentAddins](equivalentaddins.md)    |  No  | Specifies the native (COM/XLL) add-ins that are equivalent to the web add-in. The web add-in is not activated if an equivalent native add-in is installed.|
 |  **VersionOverrides**    |  No  | Defines add-in commands under a newer schema version. See [Implementing multiple versions](#implementing-multiple-versions) for details. |
 |  [WebApplicationInfo](webapplicationinfo.md)    |  No  | Specifies details about the add-in's registration with secure token issuers, such as Azure Active Directory V2.0. |
-|  [ExtendedPermissions](extendedpermissions.md) |  No  |  Specifies a collection of extended permissions.<br><br>**Important**: Because the [Office.Body.appendOnSendAsync](/javascript/api/outlook/office.body?view=outlook-js-preview&preserve-view=true#appendonsendasync-data--options--callback-) API is currently in preview, add-ins that use the `ExtendedPermissions` element can't be published to AppSource or deployed via centralized deployment. |
+|  [ExtendedPermissions](extendedpermissions.md) |  No  |  Specifies a collection of extended permissions. |
 
 ### VersionOverrides example
 
@@ -73,7 +73,7 @@ A manifest can implement multiple versions of the `VersionOverrides` element whi
 
 In order to implement multiple versions, the `VersionOverrides` element for the newer version must be a child of the `VersionOverrides` element for the older version. The child `VersionOverrides` element doesn't inherit any values from the parent.
 
-To implement both the VersionOverrides v1.0 and v1.1 schema, the manifest would look similar to the following example:
+To implement both the VersionOverrides v1.0 and v1.1 schema, the manifest would look similar to the following example.
 
 ```xml
 <OfficeApp ... xsi:type="MailApp">
